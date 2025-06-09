@@ -1,0 +1,22 @@
+# Activer le moteur de réécriture
+RewriteEngine On
+
+# Base du répertoire pour les règles de réécriture (ajustez si nécessaire)
+# RewriteBase /
+
+# Permettre l'accès direct aux fichiers et répertoires existants
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rediriger toutes les autres requêtes vers index.php
+# Avec transmission du chemin demandé comme paramètre de requête
+RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]
+
+# Protéger le fichier .htaccess
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Désactiver l'affichage du contenu des répertoires
+Options -Indexes
