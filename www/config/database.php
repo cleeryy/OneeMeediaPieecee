@@ -2,7 +2,7 @@
 
 return [
     'host' => '192.168.1.42',
-    'port' => '13306',
+    'port' => '3306',
     'dbname' => 'onemediapiece',
     'username' => 'root',
     'password' => 'SuperPassword!1',
