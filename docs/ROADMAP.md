@@ -38,13 +38,13 @@
 - [x] **Implémentation de la couche Entity**
   - [x] Création des classes UtilisateurEntity, ArticleEntity, CommentaireEntity
   - [x] Implémentation des getters/setters et méthodes de conversion
-- [ ] **Développement de la couche DAO**
-  - [ ] Création des classes DAO pour chaque entité
-  - [ ] Implémentation des méthodes CRUD
-  - [ ] Configuration de la connexion à la base de données
-- [ ] **Mise en place de la couche Service**
-  - [ ] Développement des règles métier
-  - [ ] Implémentation des services pour chaque fonctionnalité
+- [x] **Développement de la couche DAO**
+  - [x] Création des classes DAO pour chaque entité
+  - [x] Implémentation des méthodes CRUD
+  - [x] Configuration de la connexion à la base de données
+- [x] **Mise en place de la couche Service**
+  - [x] Développement des règles métier
+  - [x] Implémentation des services pour chaque fonctionnalité
 - [ ] **Création de la couche Controller**
   - [ ] Mise en place des contrôleurs pour chaque type de requête
   - [ ] Implémentation du routage dans index.php
