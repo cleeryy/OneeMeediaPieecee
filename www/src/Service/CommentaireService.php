@@ -92,11 +92,10 @@ class CommentaireService
             throw new RuntimeException("Utilisateur non autorisé");
         }
 
-        if (
-            $commentaire->getUtilisateurId() !== $utilisateurId &&
-            !$utilisateur->isModerateur() &&
-            !$utilisateur->isAdministrateur()
-        ) {
+        $estProprietaire = ($commentaire->getUtilisateurId() === $utilisateurId);
+        $estModerateurOuAdmin = ($utilisateur->isModerateur() || $utilisateur->isAdministrateur());
+
+        if (!$estProprietaire && !$estModerateurOuAdmin) {
             throw new RuntimeException("Vous n'êtes pas autorisé à modifier ce commentaire");
         }
 

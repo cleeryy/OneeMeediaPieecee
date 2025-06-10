@@ -83,11 +83,11 @@ class ArticleService
             throw new RuntimeException("Utilisateur non autorisé");
         }
 
-        if (
-            $article->getUtilisateurId() !== $utilisateurId &&
-            !$utilisateur->isModerateur() &&
-            !$utilisateur->isAdministrateur()
-        ) {
+        // CORRECTION : Vérification stricte des permissions
+        $estProprietaire = ($article->getUtilisateurId() === $utilisateurId);
+        $estModerateurOuAdmin = ($utilisateur->isModerateur() || $utilisateur->isAdministrateur());
+
+        if (!$estProprietaire && !$estModerateurOuAdmin) {
             throw new RuntimeException("Vous n'êtes pas autorisé à modifier cet article");
         }
 
