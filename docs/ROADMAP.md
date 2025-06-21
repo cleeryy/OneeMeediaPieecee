@@ -45,9 +45,9 @@
 - [x] **Mise en place de la couche Service**
   - [x] Développement des règles métier
   - [x] Implémentation des services pour chaque fonctionnalité
-- [ ] **Création de la couche Controller**
-  - [ ] Mise en place des contrôleurs pour chaque type de requête
-  - [ ] Implémentation du routage dans index.php
+- [x] **Création de la couche Controller**
+  - [x] Mise en place des contrôleurs pour chaque type de requête
+  - [x] Implémentation du routage dans index.php
 
 ## Phase 4: Développement des fonctionnalités - Utilisateurs
 
