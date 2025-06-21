@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tableau de bord - OneMediaPiece</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="main-layout">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <a href="/" class="logo">OneMediaPiece</a>
+          <nav class="nav">
+            <ul class="nav-menu">
+              <li><a href="/" class="nav-link">Accueil</a></li>
+              <li>
+                <a href="/dashboard" class="nav-link active">Tableau de bord</a>
+              </li>
+              <li data-role="moderator">
+                <a href="/moderation" class="nav-link">Modération</a>
+              </li>
+            </ul>
+
+            <div class="user-menu">
+              <div class="user-menu-toggle" id="userMenuToggle">
+                <div class="user-avatar" data-user="avatar">JD</div>
+                <span data-user="name">John Doe</span>
+              </div>
+              <div class="user-menu-dropdown" id="userMenuDropdown">
+                <a href="/profile" class="user-menu-item">Mon profil</a>
+                <a href="#" class="user-menu-item" id="logoutBtn"
+                  >Déconnexion</a
+                >
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+      <div class="container">
+        <div class="layout-with-sidebar">
+          <!-- Sidebar -->
+          <aside class="sidebar">
+            <h2 class="sidebar-title">Menu</h2>
+            <ul class="sidebar-menu">
+              <li class="sidebar-menu-item">
+                <a
+                  href="#dashboard"
+                  class="sidebar-menu-link active"
+                  data-tab="dashboard"
+                >
+                  📊 Vue d'ensemble
+                </a>
+              </li>
+              <li class="sidebar-menu-item">
+                <a
+                  href="#articles"
+                  class="sidebar-menu-link"
+                  data-tab="articles"
+                >
+                  📝 Mes articles
+                </a>
+              </li>
+              <li class="sidebar-menu-item">
+                <a href="#create" class="sidebar-menu-link" data-tab="create">
+                  ➕ Nouvel article
+                </a>
+              </li>
+              <li class="sidebar-menu-item">
+                <a
+                  href="#comments"
+                  class="sidebar-menu-link"
+                  data-tab="comments"
+                >
+                  💬 Mes commentaires
+                </a>
+              </li>
+              <li class="sidebar-menu-item">
+                <a href="#profile" class="sidebar-menu-link" data-tab="profile">
+                  👤 Mon profil
+                </a>
+              </li>
+            </ul>
+          </aside>
+
+          <!-- Contenu principal -->
+          <div class="main-with-sidebar">
+            <!-- Vue d'ensemble -->
+            <section id="tab-dashboard" class="tab-content active">
+              <h1 class="mb-lg">Tableau de bord</h1>
+
+              <!-- Statistiques -->
+              <div class="grid-3 mb-xl">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <div class="user-stat-number" id="statsArticles">0</div>
+                    <div class="user-stat-label">Articles publiés</div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body text-center">
+                    <div class="user-stat-number" id="statsComments">0</div>
+                    <div class="user-stat-label">Commentaires</div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body text-center">
+                    <div class="user-stat-number" id="statsPending">0</div>
+                    <div class="user-stat-label">En attente</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Actions rapides -->
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">Actions rapides</h2>
+                </div>
+                <div class="card-body">
+                  <div class="btn-group">
+                    <button class="btn btn-primary" data-tab-trigger="create">
+                      ➕ Nouvel article
+                    </button>
+                    <button
+                      class="btn btn-outline-primary"
+                      data-tab-trigger="articles"
+                    >
+                      📝 Gérer mes articles
+                    </button>
+                    <button
+                      class="btn btn-outline-primary"
+                      data-tab-trigger="profile"
+                    >
+                      👤 Modifier mon profil
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Articles récents -->
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">Mes articles récents</h2>
+                </div>
+                <div class="card-body">
+                  <div id="recentArticles">
+                    <!-- Sera peuplé par JavaScript -->
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Mes articles -->
+            <section id="tab-articles" class="tab-content">
+              <div class="d-flex justify-between align-center mb-lg">
+                <h1>Mes articles</h1>
+                <button class="btn btn-primary" data-tab-trigger="create">
+                  ➕ Nouvel article
+                </button>
+              </div>
+
+              <!-- Filtres -->
+              <div class="card mb-lg">
+                <div class="card-body">
+                  <div class="form-inline">
+                    <div class="form-group">
+                      <label for="articleFilter" class="form-label"
+                        >Filtrer par état :</label
+                      >
+                      <select id="articleFilter" class="form-select">
+                        <option value="">Tous les articles</option>
+                        <option value="en_attente">En attente</option>
+                        <option value="accepte">Acceptés</option>
+                        <option value="refuse">Refusés</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="articleSearch" class="form-label"
+                        >Rechercher :</label
+                      >
+                      <input
+                        type="text"
+                        id="articleSearch"
+                        class="form-input"
+                        placeholder="Titre de l'article..."
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Liste des articles -->
+              <div id="userArticles" class="cards-list">
+                <!-- Sera peuplé par JavaScript -->
+              </div>
+            </section>
+
+            <!-- Création d'article -->
+            <section id="tab-create" class="tab-content">
+              <h1 class="mb-lg">Créer un nouvel article</h1>
+
+              <div class="card">
+                <div class="card-body">
+                  <form id="createArticleForm">
+                    <div class="form-group">
+                      <label for="articleTitle" class="form-label required"
+                        >Titre de l'article</label
+                      >
+                      <input
+                        type="text"
+                        id="articleTitle"
+                        name="titre"
+                        class="form-input"
+                        required
+                        placeholder="Un titre accrocheur..."
+                        maxlength="255"
+                      />
+                      <div class="form-error" id="title-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="articleContent" class="form-label required"
+                        >Contenu</label
+                      >
+                      <textarea
+                        id="articleContent"
+                        name="contenu"
+                        class="form-input form-textarea"
+                        required
+                        placeholder="Rédigez votre article ici..."
+                        style="min-height: 300px"
+                      ></textarea>
+                      <div class="form-help">
+                        Rédigez un contenu de qualité pour vos lecteurs
+                      </div>
+                      <div class="form-error" id="content-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="articleVisibility" class="form-label"
+                        >Visibilité</label
+                      >
+                      <select
+                        id="articleVisibility"
+                        name="visibilite"
+                        class="form-select"
+                      >
+                        <option value="public">
+                          Public - Visible par tous
+                        </option>
+                        <option value="prive">
+                          Privé - Visible uniquement par les utilisateurs
+                          connectés
+                        </option>
+                      </select>
+                      <div class="form-help">
+                        Vous pourrez modifier ce paramètre plus tard
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">
+                          📝 Publier l'article
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline-secondary"
+                          id="resetForm"
+                        >
+                          🔄 Réinitialiser
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </section>
+
+            <!-- Mes commentaires -->
+            <section id="tab-comments" class="tab-content">
+              <h1 class="mb-lg">Mes commentaires</h1>
+              <div id="userComments">
+                <!-- Sera peuplé par JavaScript -->
+              </div>
+            </section>
+
+            <!-- Mon profil -->
+            <section id="tab-profile" class="tab-content">
+              <h1 class="mb-lg">Mon profil</h1>
+
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">Informations personnelles</h2>
+                </div>
+                <div class="card-body">
+                  <form id="profileForm">
+                    <div class="form-group">
+                      <label for="profileEmail" class="form-label required"
+                        >Email</label
+                      >
+                      <input
+                        type="email"
+                        id="profileEmail"
+                        name="email"
+                        class="form-input"
+                        required
+                      />
+                      <div class="form-error" id="profileEmail-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="profilePseudonyme" class="form-label required"
+                        >Pseudonyme</label
+                      >
+                      <input
+                        type="text"
+                        id="profilePseudonyme"
+                        name="pseudonyme"
+                        class="form-input"
+                        required
+                        maxlength="50"
+                      />
+                      <div
+                        class="form-error"
+                        id="profilePseudonyme-error"
+                      ></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="profilePassword" class="form-label"
+                        >Nouveau mot de passe</label
+                      >
+                      <input
+                        type="password"
+                        id="profilePassword"
+                        name="password"
+                        class="form-input"
+                        placeholder="Laissez vide pour conserver le mot de passe actuel"
+                      />
+                      <div class="form-help">Minimum 6 caractères</div>
+                      <div class="form-error" id="profilePassword-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary">
+                        💾 Mettre à jour le profil
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Informations du compte -->
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">Informations du compte</h2>
+                </div>
+                <div class="card-body">
+                  <div class="user-info">
+                    <p>
+                      <strong>Type de compte :</strong>
+                      <span id="userType" data-user="type">Rédacteur</span>
+                    </p>
+                    <p>
+                      <strong>Membre depuis :</strong>
+                      <span id="userSince" data-user="since">-</span>
+                    </p>
+                    <p>
+                      <strong>Statut :</strong>
+                      <span class="badge badge-accepted">Actif</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone de danger -->
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title text-error">Zone de danger</h2>
+                </div>
+                <div class="card-body">
+                  <p class="text-muted mb-md">
+                    Une fois votre compte supprimé, toutes vos données seront
+                    définitivement perdues.
+                  </p>
+                  <button
+                    type="button"
+                    class="btn btn-error"
+                    id="deleteAccountBtn"
+                  >
+                    🗑️ Supprimer mon compte
+                  </button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="/privacy" class="footer-link"
+              >Politique de confidentialité</a
+            >
+            <a href="/terms" class="footer-link">Conditions d'utilisation</a>
+            <a href="/contact" class="footer-link">Contact</a>
+          </div>
+          <p class="footer-copyright">
+            © 2025 OneMediaPiece. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Modal de confirmation de suppression -->
+    <div class="modal-overlay" id="deleteModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Confirmer la suppression</h3>
+          <button class="modal-close" id="closeDeleteModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Êtes-vous sûr de vouloir supprimer votre compte ?</p>
+          <p class="text-error">Cette action est irréversible.</p>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input
+                type="checkbox"
+                id="deleteContent"
+                class="form-check-input"
+              />
+              <label for="deleteContent" class="form-check-label">
+                Supprimer également tous mes articles et commentaires
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" id="cancelDelete">
+            Annuler
+          </button>
+          <button class="btn btn-error" id="confirmDelete">
+            Supprimer définitivement
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/articles.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Vérifier l'authentification
+        if (!auth.requireAuth()) {
+          return;
+        }
+
+        // Initialiser le tableau de bord
+        const dashboard = new Dashboard();
+        dashboard.init();
+      });
+    </script>
+  </body>
+</html>

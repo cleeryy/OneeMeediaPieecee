@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Article - OneMediaPiece</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="main-layout">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <a href="/" class="logo">OneMediaPiece</a>
+
+          <nav class="nav">
+            <ul class="nav-menu">
+              <li><a href="/" class="nav-link">Accueil</a></li>
+              <li><a href="/about" class="nav-link">À propos</a></li>
+
+              <!-- Éléments pour visiteurs non connectés -->
+              <li data-auth="false">
+                <a href="/register" class="nav-link">S'inscrire</a>
+              </li>
+              <li data-auth="false">
+                <a href="/login" class="nav-link">Se connecter</a>
+              </li>
+
+              <!-- Éléments pour utilisateurs connectés -->
+              <li data-auth="true">
+                <a href="/dashboard" class="nav-link">Tableau de bord</a>
+              </li>
+              <li data-auth="true" data-role="moderator">
+                <a href="/moderation" class="nav-link">Modération</a>
+              </li>
+            </ul>
+
+            <!-- Menu utilisateur -->
+            <div class="user-menu" data-auth="true">
+              <div class="user-menu-toggle" id="userMenuToggle">
+                <div class="user-avatar" data-user="avatar">JD</div>
+                <span data-user="name">John Doe</span>
+              </div>
+              <div class="user-menu-dropdown" id="userMenuDropdown">
+                <a href="/profile" class="user-menu-item">Mon profil</a>
+                <a href="/dashboard" class="user-menu-item">Mes articles</a>
+                <a href="#" class="user-menu-item" id="logoutBtn"
+                  >Déconnexion</a
+                >
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+      <div class="container">
+        <!-- Loading -->
+        <div id="articleLoading" class="text-center p-xl">
+          <div class="spinner spinner-lg"></div>
+          <p class="mt-md">Chargement de l'article...</p>
+        </div>
+
+        <!-- Article non trouvé -->
+        <div
+          id="articleNotFound"
+          class="text-center p-xl"
+          style="display: none"
+        >
+          <h1>Article introuvable</h1>
+          <p class="text-muted">
+            Cet article n'existe pas ou n'est plus disponible.
+          </p>
+          <a href="/" class="btn btn-primary">Retour à l'accueil</a>
+        </div>
+
+        <!-- Contenu de l'article -->
+        <div id="articleContent" style="display: none">
+          <!-- Navigation breadcrumb -->
+          <nav class="breadcrumb mb-lg">
+            <a href="/" class="breadcrumb-link">Accueil</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current" id="breadcrumbTitle">Article</span>
+          </nav>
+
+          <!-- Article principal -->
+          <article class="card article-detail">
+            <div class="card-body">
+              <!-- Meta informations -->
+              <div class="article-meta mb-md">
+                <div
+                  class="d-flex justify-between align-center flex-wrap"
+                  style="gap: 1rem"
+                >
+                  <div class="d-flex align-center" style="gap: 1rem">
+                    <span class="article-author" id="articleAuthor"
+                      >Auteur</span
+                    >
+                    <span class="article-date" id="articleDate">Date</span>
+                  </div>
+                  <div class="article-badges" id="articleBadges">
+                    <!-- Badges seront ajoutés dynamiquement -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Titre -->
+              <h1 class="article-title mb-lg" id="articleTitle">
+                Titre de l'article
+              </h1>
+
+              <!-- Contenu -->
+              <div class="article-content" id="articleContentText">
+                <!-- Le contenu sera injecté ici -->
+              </div>
+
+              <!-- Actions sur l'article (pour l'auteur/modérateur) -->
+              <div
+                id="articleActions"
+                class="article-actions mt-xl"
+                style="display: none"
+              >
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Actions</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="btn-group">
+                      <button
+                        class="btn btn-outline-primary"
+                        id="editArticleBtn"
+                      >
+                        ✏️ Modifier
+                      </button>
+                      <button
+                        class="btn btn-outline-error"
+                        id="deleteArticleBtn"
+                      >
+                        🗑️ Supprimer
+                      </button>
+                      <!-- Actions de modération -->
+                      <div id="moderationActions" style="display: none">
+                        <button class="btn btn-success" id="acceptArticleBtn">
+                          ✅ Accepter
+                        </button>
+                        <button class="btn btn-warning" id="refuseArticleBtn">
+                          ❌ Refuser
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Section des commentaires avec accordéon -->
+          <section class="comments-section mt-xl">
+            <div class="comments-accordion">
+              <button
+                class="comments-toggle"
+                id="commentsToggle"
+                aria-expanded="false"
+              >
+                <span>
+                  💬 Commentaires (<span id="commentsCount">0</span>)
+                </span>
+                <span class="comments-toggle-icon">▼</span>
+              </button>
+
+              <div class="comments-content" id="commentsContent">
+                <div class="comments-list">
+                  <!-- Formulaire d'ajout de commentaire (pour utilisateurs connectés) -->
+                  <div
+                    id="addCommentForm"
+                    class="add-comment-form mb-lg"
+                    data-auth="true"
+                  >
+                    <h3>Ajouter un commentaire</h3>
+                    <form id="commentForm">
+                      <div class="form-group">
+                        <label for="commentContent" class="form-label required"
+                          >Votre commentaire</label
+                        >
+                        <textarea
+                          id="commentContent"
+                          name="contenu"
+                          class="form-input form-textarea"
+                          required
+                          placeholder="Écrivez votre commentaire ici..."
+                          rows="4"
+                        ></textarea>
+                        <div class="form-help">
+                          Soyez respectueux et constructif dans vos commentaires
+                        </div>
+                        <div class="form-error" id="comment-error"></div>
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                          💬 Publier le commentaire
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <!-- Message pour visiteurs non connectés -->
+                  <div
+                    id="loginPrompt"
+                    class="text-center p-lg"
+                    data-auth="false"
+                  >
+                    <p class="text-muted">
+                      <a href="/login" class="text-accent">Connectez-vous</a>
+                      pour participer à la discussion.
+                    </p>
+                  </div>
+
+                  <!-- Loading des commentaires -->
+                  <div id="commentsLoading" class="text-center p-lg">
+                    <div class="spinner"></div>
+                    <p class="mt-sm">Chargement des commentaires...</p>
+                  </div>
+
+                  <!-- Liste des commentaires -->
+                  <div id="commentsList">
+                    <!-- Les commentaires seront injectés ici -->
+                  </div>
+
+                  <!-- Message si aucun commentaire -->
+                  <div
+                    id="noComments"
+                    class="text-center p-lg"
+                    style="display: none"
+                  >
+                    <p class="text-muted">Aucun commentaire pour le moment.</p>
+                    <p class="text-muted">
+                      Soyez le premier à commenter cet article !
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="/privacy" class="footer-link"
+              >Politique de confidentialité</a
+            >
+            <a href="/terms" class="footer-link">Conditions d'utilisation</a>
+            <a href="/contact" class="footer-link">Contact</a>
+            <a href="/about" class="footer-link">À propos</a>
+          </div>
+          <p class="footer-copyright">
+            © 2025 OneMediaPiece. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Modal de confirmation -->
+    <div class="modal-overlay" id="confirmModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title" id="confirmModalTitle">Confirmer l'action</h3>
+          <button class="modal-close" id="closeConfirmModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p id="confirmModalMessage">
+            Êtes-vous sûr de vouloir effectuer cette action ?
+          </p>
+          <div id="confirmModalInput" style="display: none">
+            <div class="form-group">
+              <label for="moderationReason" class="form-label"
+                >Raison (obligatoire)</label
+              >
+              <textarea
+                id="moderationReason"
+                class="form-input form-textarea"
+                placeholder="Expliquez la raison de cette action..."
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" id="cancelConfirm">
+            Annuler
+          </button>
+          <button class="btn btn-primary" id="confirmAction">Confirmer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/articles.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Récupérer l'ID de l'article depuis l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get("id");
+
+        if (!articleId) {
+          document.getElementById("articleLoading").style.display = "none";
+          document.getElementById("articleNotFound").style.display = "";
+          return;
+        }
+
+        // Initialiser la page d'article
+        const articlePage = new ArticlePage(articleId);
+        articlePage.init();
+      });
+
+      class ArticlePage {
+        constructor(articleId) {
+          this.articleId = articleId;
+          this.article = null;
+          this.comments = [];
+
+          // Éléments DOM
+          this.articleLoading = document.getElementById("articleLoading");
+          this.articleNotFound = document.getElementById("articleNotFound");
+          this.articleContent = document.getElementById("articleContent");
+          this.commentsToggle = document.getElementById("commentsToggle");
+          this.commentsContent = document.getElementById("commentsContent");
+          this.commentForm = document.getElementById("commentForm");
+          this.confirmModal = document.getElementById("confirmModal");
+
+          // États
+          this.commentsVisible = false;
+          this.confirmCallback = null;
+        }
+
+        async init() {
+          this.setupEventListeners();
+          await this.loadArticle();
+        }
+
+        setupEventListeners() {
+          // Menu utilisateur
+          this.setupUserMenu();
+
+          // Accordéon des commentaires
+          this.commentsToggle?.addEventListener("click", () => {
+            this.toggleComments();
+          });
+
+          // Formulaire de commentaire
+          this.commentForm?.addEventListener("submit", (e) => {
+            e.preventDefault();
+            this.handleAddComment();
+          });
+
+          // Actions sur l'article
+          document
+            .getElementById("editArticleBtn")
+            ?.addEventListener("click", () => {
+              window.location.href = `/edit-article?id=${this.articleId}`;
+            });
+
+          document
+            .getElementById("deleteArticleBtn")
+            ?.addEventListener("click", () => {
+              this.confirmAction(
+                "Supprimer l'article",
+                "Êtes-vous sûr de vouloir supprimer cet article ?",
+                () => this.deleteArticle()
+              );
+            });
+
+          document
+            .getElementById("acceptArticleBtn")
+            ?.addEventListener("click", () => {
+              this.moderateArticle("accepter");
+            });
+
+          document
+            .getElementById("refuseArticleBtn")
+            ?.addEventListener("click", () => {
+              this.confirmAction(
+                "Refuser l'article",
+                "Pourquoi refusez-vous cet article ?",
+                (reason) => this.moderateArticle("refuser", reason),
+                true
+              );
+            });
+
+          // Modal de confirmation
+          document
+            .getElementById("closeConfirmModal")
+            ?.addEventListener("click", () => {
+              this.hideConfirmModal();
+            });
+
+          document
+            .getElementById("cancelConfirm")
+            ?.addEventListener("click", () => {
+              this.hideConfirmModal();
+            });
+
+          document
+            .getElementById("confirmAction")
+            ?.addEventListener("click", () => {
+              this.executeConfirmAction();
+            });
+
+          // Fermer modal en cliquant sur l'overlay
+          this.confirmModal?.addEventListener("click", (e) => {
+            if (e.target === this.confirmModal) {
+              this.hideConfirmModal();
+            }
+          });
+        }
+
+        setupUserMenu() {
+          const userMenuToggle = document.getElementById("userMenuToggle");
+          const userMenuDropdown = document.getElementById("userMenuDropdown");
+
+          userMenuToggle?.addEventListener("click", () => {
+            userMenuDropdown.classList.toggle("show");
+          });
+
+          document.addEventListener("click", (e) => {
+            if (!e.target.closest(".user-menu")) {
+              userMenuDropdown?.classList.remove("show");
+            }
+          });
+
+          document
+            .getElementById("logoutBtn")
+            ?.addEventListener("click", (e) => {
+              e.preventDefault();
+              auth.logout();
+            });
+        }
+
+        async loadArticle() {
+          try {
+            const response = await api.getArticle(this.articleId);
+
+            if (response.success && response.data) {
+              this.article = response.data;
+              this.displayArticle();
+              await this.loadComments();
+            } else {
+              this.showNotFound();
+            }
+          } catch (error) {
+            console.error("Erreur lors du chargement de l'article:", error);
+            this.showNotFound();
+          } finally {
+            this.articleLoading.style.display = "none";
+          }
+        }
+
+        displayArticle() {
+          // Mettre à jour le titre de la page
+          document.title = `${this.article.titre} - OneMediaPiece`;
+
+          // Breadcrumb
+          document.getElementById("breadcrumbTitle").textContent =
+            this.article.titre;
+
+          // Informations de l'article
+          document.getElementById(
+            "articleAuthor"
+          ).textContent = `Auteur #${this.article.utilisateur_id}`;
+          document.getElementById("articleDate").textContent = this.formatDate(
+            this.article.date_creation
+          );
+          document.getElementById("articleTitle").textContent =
+            this.article.titre;
+          document.getElementById("articleContentText").innerHTML =
+            this.formatContent(this.article.contenu);
+
+          // Badges
+          const badgesContainer = document.getElementById("articleBadges");
+          badgesContainer.innerHTML = `
+                    <span class="badge badge-${
+                      this.article.etat
+                    }">${this.getEtatLabel(this.article.etat)}</span>
+                    <span class="badge badge-${
+                      this.article.visibilite
+                    }">${this.getVisibiliteLabel(
+            this.article.visibilite
+          )}</span>
+                `;
+
+          // Actions selon les permissions
+          this.setupArticleActions();
+
+          // Afficher l'article
+          this.articleContent.style.display = "";
+        }
+
+        setupArticleActions() {
+          const user = api.getCurrentUser();
+          const actionsContainer = document.getElementById("articleActions");
+          const moderationActions =
+            document.getElementById("moderationActions");
+
+          if (!user) return;
+
+          // Actions pour l'auteur
+          if (user.id === this.article.utilisateur_id) {
+            actionsContainer.style.display = "";
+          }
+
+          // Actions pour les modérateurs/admins
+          if (api.hasRole("moderator") && this.article.etat === "en_attente") {
+            actionsContainer.style.display = "";
+            moderationActions.style.display = "";
+          }
+        }
+
+        async loadComments() {
+          try {
+            const response = await api.getComments(this.articleId);
+
+            if (response.success && response.data) {
+              this.comments = response.data.commentaires || [];
+              this.updateCommentsCount();
+              this.displayComments();
+            }
+          } catch (error) {
+            console.error("Erreur lors du chargement des commentaires:", error);
+          } finally {
+            document.getElementById("commentsLoading").style.display = "none";
+          }
+        }
+
+        displayComments() {
+          const container = document.getElementById("commentsList");
+          const noComments = document.getElementById("noComments");
+
+          if (this.comments.length === 0) {
+            container.innerHTML = "";
+            noComments.style.display = "";
+            return;
+          }
+
+          noComments.style.display = "none";
+          container.innerHTML = this.comments
+            .map((comment) => this.createCommentCard(comment))
+            .join("");
+        }
+
+        createCommentCard(comment) {
+          const user = api.getCurrentUser();
+          const canModerate = api.hasRole("moderator");
+          const isAuthor = user && user.id === comment.utilisateur_id;
+
+          return `
+                    <div class="comment-card ${
+                      comment.etat
+                    }" data-comment-id="${comment.id}">
+                        <div class="comment-header">
+                            <span class="comment-author">Auteur #${
+                              comment.utilisateur_id
+                            }</span>
+                            <span class="comment-date">${this.formatDate(
+                              comment.date_creation
+                            )}</span>
+                            ${
+                              comment.etat !== "accepte"
+                                ? `<span class="badge badge-${
+                                    comment.etat
+                                  }">${this.getEtatLabel(comment.etat)}</span>`
+                                : ""
+                            }
+                        </div>
+                        <div class="comment-content">
+                            ${this.formatContent(comment.contenu)}
+                        </div>
+                        ${
+                          isAuthor || canModerate
+                            ? `
+                            <div class="comment-actions">
+                                ${
+                                  isAuthor
+                                    ? `
+                                    <button class="btn btn-sm btn-outline-primary" onclick="articlePage.editComment(${comment.id})">
+                                        ✏️ Modifier
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-error" onclick="articlePage.deleteComment(${comment.id})">
+                                        🗑️ Supprimer
+                                    </button>
+                                `
+                                    : ""
+                                }
+                                ${
+                                  canModerate && comment.etat === "en_attente"
+                                    ? `
+                                    <button class="btn btn-sm btn-success" onclick="articlePage.moderateComment(${comment.id}, 'accepter')">
+                                        ✅ Accepter
+                                    </button>
+                                    <button class="btn btn-sm btn-warning" onclick="articlePage.moderateComment(${comment.id}, 'refuser')">
+                                        ❌ Refuser
+                                    </button>
+                                `
+                                    : ""
+                                }
+                            </div>
+                        `
+                            : ""
+                        }
+                    </div>
+                `;
+        }
+
+        toggleComments() {
+          this.commentsVisible = !this.commentsVisible;
+
+          if (this.commentsVisible) {
+            this.commentsContent.classList.add("show");
+            this.commentsToggle.setAttribute("aria-expanded", "true");
+            this.commentsToggle.classList.add("active");
+          } else {
+            this.commentsContent.classList.remove("show");
+            this.commentsToggle.setAttribute("aria-expanded", "false");
+            this.commentsToggle.classList.remove("active");
+          }
+        }
+
+        async handleAddComment() {
+          try {
+            const formData = new FormData(this.commentForm);
+            const content = formData.get("contenu");
+
+            if (!content || content.trim().length === 0) {
+              this.showFieldError(
+                "comment-error",
+                "Le commentaire ne peut pas être vide"
+              );
+              return;
+            }
+
+            this.clearFieldError("comment-error");
+
+            const response = await api.createComment(this.articleId, content);
+
+            if (response.success) {
+              auth.showMessage("Commentaire ajouté avec succès !", "success");
+              this.commentForm.reset();
+              await this.loadComments();
+            }
+          } catch (error) {
+            console.error("Erreur lors de l'ajout du commentaire:", error);
+            this.showFieldError("comment-error", error.message);
+          }
+        }
+
+        async moderateArticle(action, reason = "") {
+          try {
+            const response = await api.modererArticle(
+              this.articleId,
+              action,
+              reason
+            );
+
+            if (response.success) {
+              auth.showMessage("Article modéré avec succès !", "success");
+              await this.loadArticle();
+            }
+          } catch (error) {
+            console.error("Erreur lors de la modération:", error);
+            auth.showMessage(error.message, "error");
+          }
+        }
+
+        async deleteArticle() {
+          try {
+            const response = await api.deleteArticle(this.articleId);
+
+            if (response.success) {
+              auth.showMessage("Article supprimé avec succès", "success");
+              setTimeout(() => {
+                window.location.href = "/dashboard";
+              }, 2000);
+            }
+          } catch (error) {
+            console.error("Erreur lors de la suppression:", error);
+            auth.showMessage(error.message, "error");
+          }
+        }
+
+        async moderateComment(commentId, action, reason = "") {
+          try {
+            const response = await api.modererCommentaire(
+              commentId,
+              action,
+              reason
+            );
+
+            if (response.success) {
+              auth.showMessage("Commentaire modéré avec succès !", "success");
+              await this.loadComments();
+            }
+          } catch (error) {
+            console.error(
+              "Erreur lors de la modération du commentaire:",
+              error
+            );
+            auth.showMessage(error.message, "error");
+          }
+        }
+
+        editComment(commentId) {
+          // Implémenter l'édition de commentaire
+          auth.showMessage("Fonctionnalité en développement", "info");
+        }
+
+        async deleteComment(commentId) {
+          if (confirm("Êtes-vous sûr de vouloir supprimer ce commentaire ?")) {
+            try {
+              const response = await api.deleteComment(commentId);
+
+              if (response.success) {
+                auth.showMessage("Commentaire supprimé avec succès", "success");
+                await this.loadComments();
+              }
+            } catch (error) {
+              console.error(
+                "Erreur lors de la suppression du commentaire:",
+                error
+              );
+              auth.showMessage(error.message, "error");
+            }
+          }
+        }
+
+        updateCommentsCount() {
+          const count = this.comments.filter(
+            (c) => c.etat === "accepte"
+          ).length;
+          document.getElementById("commentsCount").textContent = count;
+        }
+
+        confirmAction(title, message, callback, requireReason = false) {
+          document.getElementById("confirmModalTitle").textContent = title;
+          document.getElementById("confirmModalMessage").textContent = message;
+
+          const inputDiv = document.getElementById("confirmModalInput");
+          if (requireReason) {
+            inputDiv.style.display = "";
+            document.getElementById("moderationReason").value = "";
+          } else {
+            inputDiv.style.display = "none";
+          }
+
+          this.confirmCallback = callback;
+          this.showConfirmModal();
+        }
+
+        executeConfirmAction() {
+          if (this.confirmCallback) {
+            const reasonInput = document.getElementById("moderationReason");
+            const reason =
+              reasonInput.style.display !== "none" ? reasonInput.value : null;
+
+            if (reasonInput.style.display !== "none" && !reason) {
+              auth.showMessage("La raison est obligatoire", "error");
+              return;
+            }
+
+            this.confirmCallback(reason);
+            this.hideConfirmModal();
+          }
+        }
+
+        showConfirmModal() {
+          this.confirmModal.classList.add("show");
+        }
+
+        hideConfirmModal() {
+          this.confirmModal.classList.remove("show");
+          this.confirmCallback = null;
+        }
+
+        showNotFound() {
+          this.articleNotFound.style.display = "";
+        }
+
+        // Méthodes utilitaires
+        formatDate(dateString) {
+          const date = new Date(dateString);
+          return date.toLocaleDateString("fr-FR", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        }
+
+        formatContent(content) {
+          // Conversion simple des sauts de ligne en paragraphes
+          return content
+            .split("\n\n")
+            .map((p) => `<p>${p.replace(/\n/g, "<br>")}</p>`)
+            .join("");
+        }
+
+        getEtatLabel(etat) {
+          const labels = {
+            en_attente: "En attente",
+            accepte: "Accepté",
+            refuse: "Refusé",
+            efface: "Effacé",
+          };
+          return labels[etat] || etat;
+        }
+
+        getVisibiliteLabel(visibilite) {
+          const labels = {
+            public: "Public",
+            prive: "Privé",
+          };
+          return labels[visibilite] || visibilite;
+        }
+
+        showFieldError(elementId, message) {
+          const errorElement = document.getElementById(elementId);
+          if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.style.display = "block";
+          }
+        }
+
+        clearFieldError(elementId) {
+          const errorElement = document.getElementById(elementId);
+          if (errorElement) {
+            errorElement.textContent = "";
+            errorElement.style.display = "none";
+          }
+        }
+      }
+
+      // Instance globale
+      let articlePage;
+    </script>
+  </body>
+</html>

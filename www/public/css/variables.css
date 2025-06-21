@@ -1,0 +1,86 @@
+/* Variables CSS - Charte graphique OneMediaPiece */
+:root {
+  /* Couleurs principales */
+  --color-primary: #2c3e50;
+  --color-secondary: #e74c3c;
+  --color-accent: #3498db;
+  --color-background: #ecf0f1;
+  --color-text: #2c3e50;
+  --color-white: #ffffff;
+
+  /* Couleurs fonctionnelles */
+  --color-pending: #f39c12;
+  --color-accepted: #2ecc71;
+  --color-refused: #e74c3c;
+  --color-deleted: #95a5a6;
+
+  /* Couleurs d'état */
+  --color-success: #2ecc71;
+  --color-warning: #f39c12;
+  --color-error: #e74c3c;
+  --color-info: #3498db;
+
+  /* Nuances de gris */
+  --color-gray-100: #f8f9fa;
+  --color-gray-200: #e9ecef;
+  --color-gray-300: #dee2e6;
+  --color-gray-400: #ced4da;
+  --color-gray-500: #adb5bd;
+  --color-gray-600: #6c757d;
+  --color-gray-700: #495057;
+  --color-gray-800: #343a40;
+  --color-gray-900: #212529;
+
+  /* Typographie */
+  --font-heading: "Roboto", sans-serif;
+  --font-body: "Open Sans", sans-serif;
+
+  /* Tailles de police */
+  --font-size-h1: 32px;
+  --font-size-h2: 24px;
+  --font-size-h3: 20px;
+  --font-size-body: 16px;
+  --font-size-small: 14px;
+  --font-size-xs: 12px;
+
+  /* Poids de police */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Espacements */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+
+  /* Rayons de bordure */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+
+  /* Ombres */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+  --transition-slow: 0.5s ease-in-out;
+
+  /* Breakpoints */
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+
+  /* Container */
+  --container-max-width: 1200px;
+  --container-padding: var(--spacing-md);
+}

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System - OneMediaPiece</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* Styles spécifiques pour la présentation du design system */
+        .design-section {
+            margin-bottom: var(--spacing-xxl);
+            padding-bottom: var(--spacing-xl);
+            border-bottom: 2px solid var(--color-gray-200);
+        }
+        
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .color-item {
+            text-align: center;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .color-swatch {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-small);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .color-info {
+            padding: var(--spacing-md);
+            background: var(--color-white);
+        }
+        
+        .component-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .showcase-item {
+            padding: var(--spacing-lg);
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .showcase-item h4 {
+            margin-top: 0;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: var(--spacing-sm);
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .typography-sample {
+            padding: var(--spacing-lg);
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        code {
+            background: var(--color-gray-100);
+            padding: 2px 6px;
+            border-radius: var(--border-radius-sm);
+            font-family: 'Courier New', monospace;
+            font-size: var(--font-size-small);
+        }
+        
+        .spacing-demo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .spacing-box {
+            background: var(--color-accent);
+            color: var(--color-white);
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-size: var(--font-size-small);
+            font-weight: var(--font-weight-medium);
+        }
+    </style>
+</head>
+<body class="main-layout">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">OneMediaPiece</a>
+                <nav class="nav">
+                    <ul class="nav-menu">
+                        <li><a href="#colors" class="nav-link">Couleurs</a></li>
+                        <li><a href="#typography" class="nav-link">Typographie</a></li>
+                        <li><a href="#components" class="nav-link">Composants</a></li>
+                        <li><a href="#forms" class="nav-link">Formulaires</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Titre principal -->
+            <section class="text-center mb-xl">
+                <h1 class="mb-md">Design System OneMediaPiece</h1>
+                <p class="text-muted">Présentation complète de la charte graphique et des composants d'interface</p>
+            </section>
+
+            <!-- Section Couleurs -->
+            <section id="colors" class="design-section">
+                <h2 class="mb-lg">🎨 Palette de couleurs</h2>
+                
+                <h3 class="mb-md">Couleurs principales</h3>
+                <div class="color-palette mb-xl">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #2C3E50">#2C3E50</div>
+                        <div class="color-info">
+                            <strong>Primaire</strong><br>
+                            <code>--color-primary</code>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #E74C3C">#E74C3C</div>
+                        <div class="color-info">
+                            <strong>Secondaire</strong><br>
+                            <code>--color-secondary</code>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #3498DB">#3498DB</div>
+                        <div class="color-info">
+                            <strong>Accent</strong><br>
+                            <code>--color-accent</code>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #ECF0F1; color: #2C3E50">#ECF0F1</div>
+                        <div class="color-info">
+                            <strong>Arrière-plan</strong><br>
+                            <code>--color-background</code>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="mb-md">Couleurs fonctionnelles</h3>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #F39C12">#F39C12</div>
+                        <div class="color-info">
+                            <strong>En attente</strong><br>
+                            <code>--color-pending</code>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #2ECC71">#2ECC71</div>
+                        <div class="color-info">
+                            <strong>Accepté</strong><br>
+                            <code>--color-accepted</code>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #E74C3C">#E74C3C</div>
+                        <div class="color-info">
+                            <strong>Refusé</strong><br>
+                            <code>--color-refused</code>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #95A5A6">#95A5A6</div>
+                        <div class="color-info">
+                            <strong>Effacé</strong><br>
+                            <code>--color-deleted</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Typographie -->
+            <section id="typography" class="design-section">
+                <h2 class="mb-lg">✍️ Typographie</h2>
+                
+                <div class="typography-sample">
+                    <h1>Titre H1 - Roboto 32px Bold</h1>
+                    <h2>Titre H2 - Roboto 24px Semi-bold</h2>
+                    <h3>Titre H3 - Roboto 20px Medium</h3>
+                    <p>Corps de texte - Open Sans 16px Regular. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p class="text-small">Texte petit - Open Sans 14px Regular</p>
+                    <p class="text-xs">Texte très petit - Open Sans 12px Regular</p>
+                </div>
+
+                <h3 class="mb-md">Variantes de texte</h3>
+                <div class="showcase-item">
+                    <p class="text-primary">Texte primaire</p>
+                    <p class="text-secondary">Texte secondaire</p>
+                    <p class="text-accent">Texte accent</p>
+                    <p class="text-success">Texte succès</p>
+                    <p class="text-warning">Texte avertissement</p>
+                    <p class="text-error">Texte erreur</p>
+                    <p class="text-muted">Texte atténué</p>
+                </div>
+            </section>
+
+            <!-- Section Espacement -->
+            <section class="design-section">
+                <h2 class="mb-lg">📏 Système d'espacement</h2>
+                <div class="spacing-demo">
+                    <div class="spacing-box" style="width: 4px;">XS</div>
+                    <span>4px - <code>--spacing-xs</code></span>
+                </div>
+                <div class="spacing-demo">
+                    <div class="spacing-box" style="width: 8px;">SM</div>
+                    <span>8px - <code>--spacing-sm</code></span>
+                </div>
+                <div class="spacing-demo">
+                    <div class="spacing-box" style="width: 16px;">MD</div>
+                    <span>16px - <code>--spacing-md</code></span>
+                </div>
+                <div class="spacing-demo">
+                    <div class="spacing-box" style="width: 24px;">LG</div>
+                    <span>24px - <code>--spacing-lg</code></span>
+                </div>
+                <div class="spacing-demo">
+                    <div class="spacing-box" style="width: 32px;">XL</div>
+                    <span>32px - <code>--spacing-xl</code></span>
+                </div>
+                <div class="spacing-demo">
+                    <div class="spacing-box" style="width: 48px;">XXL</div>
+                    <span>48px - <code>--spacing-xxl</code></span>
+                </div>
+            </section>
+
+            <!-- Section Boutons -->
+            <section class="design-section">
+                <h2 class="mb-lg">🔘 Boutons</h2>
+                
+                <h3 class="mb-md">Variantes de couleur</h3>
+                <div class="button-grid mb-lg">
+                    <button class="btn btn-primary">Primaire</button>
+                    <button class="btn btn-secondary">Secondaire</button>
+                    <button class="btn btn-accent">Accent</button>
+                    <button class="btn btn-success">Succès</button>
+                    <button class="btn btn-warning">Avertissement</button>
+                    <button class="btn btn-error">Erreur</button>
+                </div>
+
+                <h3 class="mb-md">Boutons outline</h3>
+                <div class="button-grid mb-lg">
+                    <button class="btn btn-outline-primary">Outline Primaire</button>
+                    <button class="btn btn-outline-secondary">Outline Secondaire</button>
+                    <button class="btn btn-ghost">Fantôme</button>
+                </div>
+
+                <h3 class="mb-md">Tailles</h3>
+                <div class="d-flex align-center gap-md mb-lg">
+                    <button class="btn btn-primary btn-sm">Petit</button>
+                    <button class="btn btn-primary">Normal</button>
+                    <button class="btn btn-primary btn-lg">Grand</button>
+                </div>
+
+                <h3 class="mb-md">États</h3>
+                <div class="button-grid">
+                    <button class="btn btn-primary">Normal</button>
+                    <button class="btn btn-primary" disabled>Désactivé</button>
+                    <button class="btn btn-primary"><span class="spinner"></span> Chargement</button>
+                </div>
+            </section>
+
+            <!-- Section Badges -->
+            <section class="design-section">
+                <h2 class="mb-lg">🏷️ Badges</h2>
+                <div class="d-flex align-center gap-md flex-wrap">
+                    <span class="badge badge-pending">En attente</span>
+                    <span class="badge badge-accepted">Accepté</span>
+                    <span class="badge badge-refused">Refusé</span>
+                    <span class="badge badge-deleted">Effacé</span>
+                    <span class="badge badge-public">Public</span>
+                    <span class="badge badge-private">Privé</span>
+                </div>
+            </section>
+
+            <!-- Section Alertes -->
+            <section class="design-section">
+                <h2 class="mb-lg">⚠️ Alertes</h2>
+                <div class="alert alert-success">
+                    <strong>Succès !</strong> Votre action a été effectuée avec succès.
+                </div>
+                <div class="alert alert-warning">
+                    <strong>Attention !</strong> Cette action nécessite votre attention.
+                </div>
+                <div class="alert alert-error">
+                    <strong>Erreur !</strong> Une erreur s'est produite lors du traitement.
+                </div>
+                <div class="alert alert-info">
+                    <strong>Information :</strong> Voici une information importante.
+                </div>
+            </section>
+
+            <!-- Section Formulaires -->
+            <section id="forms" class="design-section">
+                <h2 class="mb-lg">📝 Éléments de formulaire</h2>
+                
+                <div class="component-showcase">
+                    <div class="showcase-item">
+                        <h4>Champs de base</h4>
+                        <div class="form-group">
+                            <label class="form-label required">Email</label>
+                            <input type="email" class="form-input" placeholder="votre@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Mot de passe</label>
+                            <input type="password" class="form-input" placeholder="••••••••">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-input form-textarea" placeholder="Votre message..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="showcase-item">
+                        <h4>États de validation</h4>
+                        <div class="form-group">
+                            <label class="form-label">Champ valide</label>
+                            <input type="text" class="form-input is-valid" value="Contenu valide">
+                            <div class="form-success">✓ Ce champ est valide</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Champ invalide</label>
+                            <input type="text" class="form-input is-invalid" value="Contenu invalide">
+                            <div class="form-error">✗ Ce champ contient une erreur</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Champ désactivé</label>
+                            <input type="text" class="form-input" value="Champ désactivé" disabled>
+                            <div class="form-help">Ce champ est en lecture seule</div>
+                        </div>
+                    </div>
+
+                    <div class="showcase-item">
+                        <h4>Sélections</h4>
+                        <div class="form-group">
+                            <label class="form-label">Liste déroulante</label>
+                            <select class="form-input form-select">
+                                <option>Choisir une option</option>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                            </select>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="check1">
+                            <label class="form-check-label" for="check1">Case à cocher</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="radio" id="radio1">
+                            <label class="form-check-label" for="radio1">Option radio 1</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="radio" id="radio2">
+                            <label class="form-check-label" for="radio2">Option radio 2</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Cartes -->
+            <section id="components" class="design-section">
+                <h2 class="mb-lg">🃏 Composants cartes</h2>
+                
+                <h3 class="mb-md">Carte d'article</h3>
+                <div class="card article-card accepted mb-lg">
+                    <div class="card-body">
+                        <div class="article-meta">
+                            <span class="article-author">John Doe</span>
+                            <span class="article-date">Il y a 2 heures</span>
+                        </div>
+                        <div class="article-badges">
+                            <span class="badge badge-accepted">Accepté</span>
+                            <span class="badge badge-public">Public</span>
+                        </div>
+                        <h3 class="card-title">Titre de l'article exemple</h3>
+                        <p class="article-excerpt">
+                            Voici un extrait de l'article qui donne un aperçu du contenu. Cet extrait est limité pour donner envie de lire la suite...
+                        </p>
+                        <div class="article-actions">
+                            <div class="article-stats">
+                                <span class="article-stat">💬 5 commentaires</span>
+                                <span class="article-stat">👁️ 127 vues</span>
+                            </div>
+                            <a href="#" class="btn btn-accent">Lire l'article</a>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="mb-md">Carte de commentaire</h3>
+                <div class="comment-card accepted mb-lg">
+                    <div class="comment-header">
+                        <span class="comment-author">Jane Smith</span>
+                        <span class="comment-date">Il y a 1 heure</span>
+                    </div>
+                    <div class="comment-content">
+                        Ceci est un exemple de commentaire accepté. Le contenu peut être plus ou moins long selon les besoins.
+                    </div>
+                    <div class="comment-actions">
+                        <button class="btn btn-ghost btn-sm">Répondre</button>
+                        <button class="btn btn-ghost btn-sm">Signaler</button>
+                    </div>
+                </div>
+
+                <h3 class="mb-md">Carte utilisateur</h3>
+                <div class="card user-card" style="max-width: 300px;">
+                    <div class="card-body">
+                        <div class="user-avatar-lg">JD</div>
+                        <h3 class="user-name">John Doe</h3>
+                        <p class="user-type">Rédacteur</p>
+                        <div class="user-stats">
+                            <div>
+                                <div class="user-stat-number">15</div>
+                                <div class="user-stat-label">Articles</div>
+                            </div>
+                            <div>
+                                <div class="user-stat-number">42</div>
+                                <div class="user-stat-label">Commentaires</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Navigation et Layout -->
+            <section class="design-section">
+                <h2 class="mb-lg">🧭 Navigation et mise en page</h2>
+                
+                <h3 class="mb-md">Onglets</h3>
+                <div class="tabs mb-lg">
+                    <div class="tabs-nav">
+                        <button class="tab-button active">Articles</button>
+                        <button class="tab-button">Commentaires</button>
+                        <button class="tab-button">Modération</button>
+                    </div>
+                </div>
+
+                <h3 class="mb-md">Pagination</h3>
+                <div class="pagination">
+                    <a href="#" class="pagination-button" disabled>Précédent</a>
+                    <a href="#" class="pagination-button active">1</a>
+                    <a href="#" class="pagination-button">2</a>
+                    <a href="#" class="pagination-button">3</a>
+                    <a href="#" class="pagination-button">Suivant</a>
+                </div>
+            </section>
+
+            <!-- Section Accordéon (Commentaires) -->
+            <section class="design-section">
+                <h2 class="mb-lg">📋 Accordéon des commentaires</h2>
+                
+                <div class="comments-accordion">
+                    <button class="comments-toggle active">
+                        <span>Commentaires (3)</span>
+                        <span class="comments-toggle-icon">▼</span>
+                    </button>
+                    <div class="comments-content show">
+                        <div class="comments-list">
+                            <div class="comment-card accepted">
+                                <div class="comment-header">
+                                    <span class="comment-author">Alice Martin</span>
+                                    <span class="comment-date">Il y a 30 minutes</span>
+                                </div>
+                                <div class="comment-content">
+                                    Excellent article ! Très informatif et bien écrit.
+                                </div>
+                            </div>
+                            <div class="comment-card pending">
+                                <div class="comment-header">
+                                    <span class="comment-author">Bob Wilson</span>
+                                    <span class="comment-date">Il y a 15 minutes</span>
+                                </div>
+                                <div class="comment-content">
+                                    Je ne suis pas d'accord avec certains points... (En attente de modération)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Spinner et États de chargement -->
+            <section class="design-section">
+                <h2 class="mb-lg">⏳ États de chargement</h2>
+                <div class="d-flex align-center gap-lg">
+                    <div class="d-flex align-center gap-sm">
+                        <div class="spinner"></div>
+                        <span>Chargement normal</span>
+                    </div>
+                    <div class="d-flex align-center gap-sm">
+                        <div class="spinner spinner-lg"></div>
+                        <span>Chargement large</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Responsive */
+            <section class="design-section">
+                <h2 class="mb-lg">📱 Design responsive</h2>
+                <div class="showcase-item">
+                    <h4>Grille responsive</h4>
+                    <div class="grid grid-4 mb-md">
+                        <div class="p-md" style="background: var(--color-gray-200); border-radius: var(--border-radius-md);">Colonne 1</div>
+                        <div class="p-md" style="background: var(--color-gray-200); border-radius: var(--border-radius-md);">Colonne 2</div>
+                        <div class="p-md" style="background: var(--color-gray-200); border-radius: var(--border-radius-md);">Colonne 3</div>
+                        <div class="p-md" style="background: var(--color-gray-200); border-radius: var(--border-radius-md);">Colonne 4</div>
+                    </div>
+                    <p class="text-small text-muted">La grille s'adapte automatiquement selon la taille de l'écran</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Design System</a>
+                    <a href="#" class="footer-link">Documentation</a>
+                    <a href="#" class="footer-link">OneMediaPiece</a>
+                </div>
+                <p class="footer-copyright">
+                    © 2025 OneMediaPiece Design System
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Script pour l'accordéon des commentaires
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggles = document.querySelectorAll('.comments-toggle');
+            
+            toggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const isActive = this.classList.contains('active');
+                    
+                    if (isActive) {
+                        this.classList.remove('active');
+                        content.classList.remove('show');
+                    } else {
+                        this.classList.add('active');
+                        content.classList.add('show');
+                    }
+                });
+            });
+            
+            // Gestion des onglets
+            const tabButtons = document.querySelectorAll('.tab-button');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Retirer la classe active de tous les boutons
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    // Ajouter la classe active au bouton cliqué
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

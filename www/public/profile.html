@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mon profil - OneMediaPiece</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="main-layout">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <a href="/" class="logo">OneMediaPiece</a>
+          <nav class="nav">
+            <ul class="nav-menu">
+              <li><a href="/" class="nav-link">Accueil</a></li>
+              <li><a href="/dashboard" class="nav-link">Tableau de bord</a></li>
+              <li data-role="moderator">
+                <a href="/moderation" class="nav-link">Modération</a>
+              </li>
+            </ul>
+
+            <div class="user-menu">
+              <div class="user-menu-toggle" id="userMenuToggle">
+                <div class="user-avatar" data-user="avatar">JD</div>
+                <span data-user="name">John Doe</span>
+              </div>
+              <div class="user-menu-dropdown" id="userMenuDropdown">
+                <a href="/profile" class="user-menu-item active">Mon profil</a>
+                <a href="/dashboard" class="user-menu-item">Mes articles</a>
+                <a href="#" class="user-menu-item" id="logoutBtn"
+                  >Déconnexion</a
+                >
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+      <div class="container">
+        <div class="layout-with-sidebar">
+          <!-- Sidebar profil -->
+          <aside class="sidebar">
+            <div class="user-card">
+              <div class="user-avatar-lg" data-user="avatar">JD</div>
+              <h2 class="user-name" data-user="name">John Doe</h2>
+              <p class="user-type" data-user="type">Rédacteur</p>
+
+              <div class="user-stats">
+                <div>
+                  <div class="user-stat-number" id="userArticlesCount">0</div>
+                  <div class="user-stat-label">Articles</div>
+                </div>
+                <div>
+                  <div class="user-stat-number" id="userCommentsCount">0</div>
+                  <div class="user-stat-label">Commentaires</div>
+                </div>
+                <div>
+                  <div class="user-stat-number" id="userJoinedDays">0</div>
+                  <div class="user-stat-label">Jours</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-lg">
+              <h3 class="sidebar-title">Navigation</h3>
+              <ul class="sidebar-menu">
+                <li class="sidebar-menu-item">
+                  <a
+                    href="#personal"
+                    class="sidebar-menu-link active"
+                    data-tab="personal"
+                  >
+                    👤 Informations personnelles
+                  </a>
+                </li>
+                <li class="sidebar-menu-item">
+                  <a
+                    href="#security"
+                    class="sidebar-menu-link"
+                    data-tab="security"
+                  >
+                    🔒 Sécurité
+                  </a>
+                </li>
+                <li class="sidebar-menu-item">
+                  <a
+                    href="#activity"
+                    class="sidebar-menu-link"
+                    data-tab="activity"
+                  >
+                    📊 Activité
+                  </a>
+                </li>
+                <li class="sidebar-menu-item">
+                  <a
+                    href="#preferences"
+                    class="sidebar-menu-link"
+                    data-tab="preferences"
+                  >
+                    ⚙️ Préférences
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+
+          <!-- Contenu principal -->
+          <div class="main-with-sidebar">
+            <h1 class="mb-lg">Mon profil</h1>
+
+            <!-- Onglet Informations personnelles -->
+            <section id="tab-personal" class="tab-content active">
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">Informations personnelles</h2>
+                  <p class="card-subtitle">Gérez vos informations de compte</p>
+                </div>
+                <div class="card-body">
+                  <form id="personalInfoForm">
+                    <div class="grid-2" style="gap: 2rem">
+                      <div class="form-group">
+                        <label for="email" class="form-label required"
+                          >Email</label
+                        >
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          class="form-input"
+                          required
+                        />
+                        <div class="form-help">
+                          Votre email sert pour la connexion
+                        </div>
+                        <div class="form-error" id="email-error"></div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="pseudonyme" class="form-label required"
+                          >Pseudonyme</label
+                        >
+                        <input
+                          type="text"
+                          id="pseudonyme"
+                          name="pseudonyme"
+                          class="form-input"
+                          required
+                          maxlength="50"
+                        />
+                        <div class="form-help">
+                          Votre nom d'affichage public
+                        </div>
+                        <div class="form-error" id="pseudonyme-error"></div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="bio" class="form-label">Biographie</label>
+                      <textarea
+                        id="bio"
+                        name="bio"
+                        class="form-input form-textarea"
+                        placeholder="Parlez-nous de vous..."
+                        rows="4"
+                        maxlength="500"
+                      ></textarea>
+                      <div class="form-help">Maximum 500 caractères</div>
+                    </div>
+
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary">
+                        💾 Sauvegarder les modifications
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Informations du compte -->
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">Informations du compte</h2>
+                </div>
+                <div class="card-body">
+                  <div class="grid-2" style="gap: 2rem">
+                    <div>
+                      <strong>Type de compte :</strong>
+                      <span
+                        id="accountType"
+                        class="badge badge-info"
+                        data-user="type"
+                        >Rédacteur</span
+                      >
+                    </div>
+                    <div>
+                      <strong>Membre depuis :</strong>
+                      <span id="memberSince" data-user="since">-</span>
+                    </div>
+                    <div>
+                      <strong>Dernière connexion :</strong>
+                      <span id="lastLogin">Maintenant</span>
+                    </div>
+                    <div>
+                      <strong>Statut :</strong>
+                      <span class="badge badge-accepted">Actif</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Onglet Sécurité -->
+            <section id="tab-security" class="tab-content">
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">Changer le mot de passe</h2>
+                  <p class="card-subtitle">
+                    Assurez-vous d'utiliser un mot de passe fort
+                  </p>
+                </div>
+                <div class="card-body">
+                  <form id="passwordForm">
+                    <div class="form-group">
+                      <label for="currentPassword" class="form-label required"
+                        >Mot de passe actuel</label
+                      >
+                      <input
+                        type="password"
+                        id="currentPassword"
+                        name="currentPassword"
+                        class="form-input"
+                        required
+                      />
+                      <div class="form-error" id="currentPassword-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="newPassword" class="form-label required"
+                        >Nouveau mot de passe</label
+                      >
+                      <input
+                        type="password"
+                        id="newPassword"
+                        name="newPassword"
+                        class="form-input"
+                        required
+                      />
+                      <div class="form-help">Minimum 6 caractères</div>
+                      <div class="form-error" id="newPassword-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="confirmPassword" class="form-label required"
+                        >Confirmer le nouveau mot de passe</label
+                      >
+                      <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        class="form-input"
+                        required
+                      />
+                      <div class="form-error" id="confirmPassword-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-secondary">
+                        🔒 Changer le mot de passe
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Sessions actives -->
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">Sessions actives</h2>
+                  <p class="card-subtitle">Gérez vos connexions</p>
+                </div>
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-between align-center p-md"
+                    style="
+                      border: 1px solid var(--color-gray-200);
+                      border-radius: var(--border-radius-md);
+                    "
+                  >
+                    <div>
+                      <strong>Session actuelle</strong>
+                      <p class="text-small text-muted mb-0">
+                        Votre session en cours
+                      </p>
+                    </div>
+                    <span class="badge badge-accepted">Active</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Onglet Activité -->
+            <section id="tab-activity" class="tab-content">
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">Activité récente</h2>
+                </div>
+                <div class="card-body">
+                  <div id="activityList">
+                    <!-- L'activité sera chargée dynamiquement -->
+                    <p class="text-center text-muted p-lg">
+                      Chargement de votre activité...
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Statistiques détaillées -->
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">Statistiques</h2>
+                </div>
+                <div class="card-body">
+                  <div class="grid-3" style="gap: 2rem">
+                    <div class="text-center">
+                      <div
+                        class="user-stat-number text-primary"
+                        id="totalArticles"
+                      >
+                        0
+                      </div>
+                      <div class="user-stat-label">Articles publiés</div>
+                    </div>
+                    <div class="text-center">
+                      <div
+                        class="user-stat-number text-accent"
+                        id="totalComments"
+                      >
+                        0
+                      </div>
+                      <div class="user-stat-label">Commentaires écrits</div>
+                    </div>
+                    <div class="text-center">
+                      <div
+                        class="user-stat-number text-success"
+                        id="totalViews"
+                      >
+                        0
+                      </div>
+                      <div class="user-stat-label">Vues totales</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Onglet Préférences -->
+            <section id="tab-preferences" class="tab-content">
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">Préférences</h2>
+                  <p class="card-subtitle">Personnalisez votre expérience</p>
+                </div>
+                <div class="card-body">
+                  <form id="preferencesForm">
+                    <div class="form-group">
+                      <label class="form-label">Notifications</label>
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="emailNotifications"
+                          class="form-check-input"
+                          checked
+                        />
+                        <label
+                          for="emailNotifications"
+                          class="form-check-label"
+                        >
+                          Recevoir des notifications par email
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="commentNotifications"
+                          class="form-check-input"
+                          checked
+                        />
+                        <label
+                          for="commentNotifications"
+                          class="form-check-label"
+                        >
+                          M'avertir des nouveaux commentaires sur mes articles
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="moderationNotifications"
+                          class="form-check-input"
+                          checked
+                        />
+                        <label
+                          for="moderationNotifications"
+                          class="form-check-label"
+                        >
+                          M'avertir des actions de modération
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="language" class="form-label">Langue</label>
+                      <select id="language" class="form-select">
+                        <option value="fr" selected>Français</option>
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="theme" class="form-label">Thème</label>
+                      <select id="theme" class="form-select">
+                        <option value="light" selected>Clair</option>
+                        <option value="dark">Sombre</option>
+                        <option value="auto">Automatique</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary">
+                        💾 Sauvegarder les préférences
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Zone de danger -->
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title text-error">Zone de danger</h2>
+                </div>
+                <div class="card-body">
+                  <p class="text-muted mb-md">
+                    Ces actions sont irréversibles. Réfléchissez bien avant de
+                    continuer.
+                  </p>
+                  <div class="btn-group">
+                    <button
+                      type="button"
+                      class="btn btn-outline-warning"
+                      id="exportDataBtn"
+                    >
+                      📤 Exporter mes données
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-error"
+                      id="deleteAccountBtn"
+                    >
+                      🗑️ Supprimer mon compte
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="/privacy" class="footer-link"
+              >Politique de confidentialité</a
+            >
+            <a href="/terms" class="footer-link">Conditions d'utilisation</a>
+            <a href="/contact" class="footer-link">Contact</a>
+          </div>
+          <p class="footer-copyright">
+            © 2025 OneMediaPiece. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/profile.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Vérifier l'authentification
+        if (!auth.requireAuth()) {
+          return;
+        }
+
+        // Initialiser la page de profil
+        const profile = new ProfilePage();
+        profile.init();
+      });
+    </script>
+  </body>
+</html>
