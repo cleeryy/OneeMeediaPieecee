@@ -37,20 +37,36 @@ class CommentaireService
         // Validation métier
         $this->validerContenuCommentaire($contenu);
 
-        // Vérifier que l'article existe et est visible
+        // Vérifier que l'article existe
         $article = $this->articleDAO->findById($articleId);
         if (!$article) {
             throw new RuntimeException("Article introuvable");
-        }
-
-        if ($article->getEtat() !== ArticleEntity::ETAT_ACCEPTE) {
-            throw new RuntimeException("Impossible de commenter cet article");
         }
 
         // Vérifier que l'utilisateur existe et n'est pas banni
         $utilisateur = $this->utilisateurDAO->findById($utilisateurId);
         if (!$utilisateur || $utilisateur->getEstBanni()) {
             throw new RuntimeException("Utilisateur non autorisé à commenter");
+        }
+
+        // Logique de permission plus flexible pour les commentaires
+        $peutCommenter = false;
+
+        // 1. Si l'article est accepté, tout le monde peut commenter
+        if ($article->getEtat() === ArticleEntity::ETAT_ACCEPTE) {
+            $peutCommenter = true;
+        }
+        // 2. Si c'est l'auteur de l'article, il peut commenter même si l'article est en attente
+        elseif ($article->getUtilisateurId() === $utilisateurId) {
+            $peutCommenter = true;
+        }
+        // 3. Si c'est un modérateur/admin, il peut commenter tous les articles
+        elseif ($utilisateur->isModerateur() || $utilisateur->isAdministrateur()) {
+            $peutCommenter = true;
+        }
+
+        if (!$peutCommenter) {
+            throw new RuntimeException("Impossible de commenter cet article");
         }
 
         // Créer le commentaire
@@ -92,10 +108,11 @@ class CommentaireService
             throw new RuntimeException("Utilisateur non autorisé");
         }
 
-        $estProprietaire = ($commentaire->getUtilisateurId() === $utilisateurId);
-        $estModerateurOuAdmin = ($utilisateur->isModerateur() || $utilisateur->isAdministrateur());
-
-        if (!$estProprietaire && !$estModerateurOuAdmin) {
+        if (
+            $commentaire->getUtilisateurId() !== $utilisateurId &&
+            !$utilisateur->isModerateur() &&
+            !$utilisateur->isAdministrateur()
+        ) {
             throw new RuntimeException("Vous n'êtes pas autorisé à modifier ce commentaire");
         }
 
@@ -327,6 +344,10 @@ class CommentaireService
         // Vérifier si l'article associé est visible
         $article = $this->articleDAO->findById($commentaire->getArticleId());
         if (!$article || $article->getEtat() !== ArticleEntity::ETAT_ACCEPTE) {
+            // Permettre de voir les commentaires sur ses propres articles
+            if ($utilisateurId && $article && $article->getUtilisateurId() === $utilisateurId) {
+                return true;
+            }
             return false;
         }
 
