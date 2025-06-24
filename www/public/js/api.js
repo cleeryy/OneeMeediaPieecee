@@ -29,7 +29,24 @@ class ApiClient {
 
     try {
       const response = await fetch(url, config);
-      const data = await response.json();
+      
+      // Vérifier si la réponse est OK
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      // Vérifier s'il y a du contenu à parser
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error(`Réponse non-JSON reçue. Content-Type: ${contentType}`);
+      }
+
+      const text = await response.text();
+      if (!text.trim()) {
+        throw new Error("Réponse vide reçue du serveur");
+      }
+
+      const data = JSON.parse(text);
 
       if (!data.success) {
         throw new Error(data.message || "Erreur API");
@@ -38,6 +55,8 @@ class ApiClient {
       return data;
     } catch (error) {
       console.error("Erreur API:", error);
+      console.error("URL:", url);
+      console.error("Config:", config);
       throw error;
     }
   }
