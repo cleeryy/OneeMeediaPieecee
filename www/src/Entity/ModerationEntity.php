@@ -20,6 +20,9 @@ class ModerationEntity
     public const TYPE_REFUS_COMMENTAIRE = 'refus_commentaire';
     public const TYPE_SIGNALEMENT = 'signalement';
     public const TYPE_SUPPRESSION_COMPTE = 'suppression_compte';
+    public const TYPE_VALIDATION_COMPTE = 'validation_compte';
+    public const TYPE_REFUS_COMPTE = 'refus_compte';
+    public const TYPE_CHANGEMENT_ROLE = 'changement_role';
 
     public function __construct()
     {
@@ -79,7 +82,10 @@ class ModerationEntity
             self::TYPE_REFUS_ARTICLE,
             self::TYPE_REFUS_COMMENTAIRE,
             self::TYPE_SIGNALEMENT,
-            self::TYPE_SUPPRESSION_COMPTE
+            self::TYPE_SUPPRESSION_COMPTE,
+            self::TYPE_VALIDATION_COMPTE,
+            self::TYPE_REFUS_COMPTE,
+            self::TYPE_CHANGEMENT_ROLE
         ];
 
         if (!in_array($typeAction, $validTypes)) {

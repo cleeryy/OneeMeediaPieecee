@@ -78,6 +78,15 @@ class UtilisateurService
             throw new RuntimeException("Votre compte a été suspendu");
         }
 
+        // Vérifier l'état du compte
+        if (!$utilisateur->isCompteValide()) {
+            if ($utilisateur->isCompteEnAttente()) {
+                throw new RuntimeException("Votre compte est en attente de validation par un administrateur");
+            } elseif ($utilisateur->isCompteRefuse()) {
+                throw new RuntimeException("Votre compte a été refusé par un administrateur");
+            }
+        }
+
         // Vérifier le mot de passe
         if (!password_verify($motDePasse, $utilisateur->getMotDePasse())) {
             return null;
@@ -100,8 +109,50 @@ class UtilisateurService
             throw new RuntimeException("Permissions insuffisantes pour valider un compte");
         }
 
-        // Valider le compte (débannir si nécessaire)
-        return $this->utilisateurDAO->validerCompte($utilisateurId);
+        // Valider le compte
+        $success = $this->utilisateurDAO->validerCompte($utilisateurId);
+
+        if ($success) {
+            // Enregistrer l'action dans la traçabilité
+            $this->moderationDAO->enregistrerValidationCompte($utilisateurId, $administrateurId, "Compte validé par l'administrateur");
+        }
+
+        return $success;
+    }
+
+    /**
+     * Refuse un compte utilisateur (par un administrateur)
+     * @param int $utilisateurId
+     * @param int $administrateurId
+     * @param string $raison
+     * @return bool
+     */
+    public function refuserCompte(int $utilisateurId, int $administrateurId, string $raison = ""): bool
+    {
+        // Vérifier les permissions de l'administrateur
+        $administrateur = $this->utilisateurDAO->findById($administrateurId);
+        if (!$administrateur || !$administrateur->isAdministrateur()) {
+            throw new RuntimeException("Permissions insuffisantes pour refuser un compte");
+        }
+
+        // Refuser le compte
+        $success = $this->utilisateurDAO->refuserCompte($utilisateurId);
+
+        if ($success) {
+            // Enregistrer l'action dans la traçabilité
+            $this->moderationDAO->enregistrerRefusCompte($utilisateurId, $administrateurId, $raison ?: "Compte refusé par l'administrateur");
+        }
+
+        return $success;
+    }
+
+    /**
+     * Récupère les comptes en attente de validation
+     * @return array
+     */
+    public function getComptesEnAttente(): array
+    {
+        return $this->utilisateurDAO->findEnAttente();
     }
 
     /**

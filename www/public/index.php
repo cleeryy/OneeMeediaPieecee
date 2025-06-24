@@ -156,6 +156,22 @@ try {
             $controller->delete((int) $matches[1]);
             break;
 
+        // Routes pour la gestion des comptes (admin)
+        case preg_match('#^/api/utilisateur/en-attente$#', $requestUri) && $requestMethod === 'GET':
+            $controller = new UtilisateurController();
+            $controller->getComptesEnAttente();
+            break;
+
+        case preg_match('#^/api/utilisateur/(\d+)/valider$#', $requestUri, $matches) && $requestMethod === 'POST':
+            $controller = new UtilisateurController();
+            $controller->validerCompte((int) $matches[1]);
+            break;
+
+        case preg_match('#^/api/utilisateur/(\d+)/refuser$#', $requestUri, $matches) && $requestMethod === 'POST':
+            $controller = new UtilisateurController();
+            $controller->refuserCompte((int) $matches[1]);
+            break;
+
         // ----------------------- ARTICLES -----------------------
         case preg_match('#^/api/article$#', $requestUri) && $requestMethod === 'GET':
             $controller = new ArticleController();
@@ -319,6 +335,10 @@ try {
         // Routes administratives
         case $requestUri === '/admin':
             serveStaticFile(__DIR__ . '/admin.html');
+            break;
+
+        case $requestUri === '/admin-comptes':
+            serveStaticFile(__DIR__ . '/admin-comptes.html');
             break;
 
         case $requestUri === '/admin/users':

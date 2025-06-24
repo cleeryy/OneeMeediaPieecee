@@ -12,6 +12,7 @@ class UtilisateurEntity
     private string $pseudonyme;
     private DateTime|string $dateCreation;
     private string $typeCompte;
+    private string $etatCompte;
     private bool $estBanni;
 
     // Constantes pour le type de compte
@@ -19,11 +20,17 @@ class UtilisateurEntity
     public const TYPE_MODERATEUR = 'moderateur';
     public const TYPE_REDACTEUR = 'redacteur';
 
+    // Constantes pour l'état du compte
+    public const ETAT_EN_ATTENTE = 'en_attente';
+    public const ETAT_VALIDE = 'valide';
+    public const ETAT_REFUSE = 'refuse';
+
 
     public function __construct()
     {
         $this->dateCreation = new DateTime();
         $this->typeCompte = self::TYPE_REDACTEUR;
+        $this->etatCompte = self::ETAT_EN_ATTENTE;
         $this->estBanni = false;
     }
 
@@ -186,6 +193,51 @@ class UtilisateurEntity
     }
 
     /**
+     * @return string
+     */
+    public function getEtatCompte(): string
+    {
+        return $this->etatCompte;
+    }
+
+    /**
+     * @param string $etatCompte 
+     * @return self
+     */
+    public function setEtatCompte(string $etatCompte): self
+    {
+        if (!in_array($etatCompte, [self::ETAT_EN_ATTENTE, self::ETAT_VALIDE, self::ETAT_REFUSE])) {
+            throw new InvalidArgumentException("État de compte invalide");
+        }
+        $this->etatCompte = $etatCompte;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCompteValide(): bool
+    {
+        return $this->etatCompte === self::ETAT_VALIDE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCompteEnAttente(): bool
+    {
+        return $this->etatCompte === self::ETAT_EN_ATTENTE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCompteRefuse(): bool
+    {
+        return $this->etatCompte === self::ETAT_REFUSE;
+    }
+
+    /**
      * @return bool
      */
     public function getEstBanni(): bool
@@ -214,6 +266,7 @@ class UtilisateurEntity
             'pseudonyme' => $this->pseudonyme,
             'date_creation' => $this->dateCreation->format('Y-m-d H:i:s'),
             'type_compte' => $this->typeCompte,
+            'etat_compte' => $this->etatCompte,
             'est_banni' => $this->estBanni
         ];
     }

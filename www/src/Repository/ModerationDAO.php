@@ -408,6 +408,42 @@ class ModerationDAO
     }
 
     /**
+     * Enregistre une validation de compte
+     * @param int $utilisateurId
+     * @param int $administrateurId
+     * @param string $description
+     * @return ModerationEntity
+     */
+    public function enregistrerValidationCompte(int $utilisateurId, int $administrateurId, string $description): ModerationEntity
+    {
+        $moderation = new ModerationEntity();
+        $moderation->setTypeAction(ModerationEntity::TYPE_VALIDATION_COMPTE);
+        $moderation->setDescription($description);
+        $moderation->setModerateurId($administrateurId);
+        $moderation->setCibleUtilisateurId($utilisateurId);
+
+        return $this->save($moderation);
+    }
+
+    /**
+     * Enregistre un refus de compte
+     * @param int $utilisateurId
+     * @param int $administrateurId
+     * @param string $description
+     * @return ModerationEntity
+     */
+    public function enregistrerRefusCompte(int $utilisateurId, int $administrateurId, string $description): ModerationEntity
+    {
+        $moderation = new ModerationEntity();
+        $moderation->setTypeAction(ModerationEntity::TYPE_REFUS_COMPTE);
+        $moderation->setDescription($description);
+        $moderation->setModerateurId($administrateurId);
+        $moderation->setCibleUtilisateurId($utilisateurId);
+
+        return $this->save($moderation);
+    }
+
+    /**
      * Compte le nombre total d'actions de modération
      * @param array $filtres
      * @return int

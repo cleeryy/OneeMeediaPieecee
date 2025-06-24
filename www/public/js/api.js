@@ -96,12 +96,12 @@ class ApiClient {
   /**
    * Articles
    */
-  async getArticles(filters = {}) {
-    const params = new URLSearchParams(filters);
-    return await this.request(`/article?${params}`);
+  async getArticles(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    return await this.request(`/article${query ? '?' + query : ''}`);
   }
 
-  async getArticle(id) {
+  async getArticleById(id) {
     return await this.request(`/article/${id}`);
   }
 
@@ -203,6 +203,25 @@ class ApiClient {
       default:
         return false;
     }
+  }
+
+  // === GESTION DES COMPTES ===
+
+  async getComptesEnAttente() {
+    return await this.request("/utilisateur/en-attente");
+  }
+
+  async validerCompte(userId) {
+    return await this.request(`/utilisateur/${userId}/valider`, {
+      method: "POST",
+    });
+  }
+
+  async refuserCompte(userId, raison = "") {
+    return await this.request(`/utilisateur/${userId}/refuser`, {
+      method: "POST",
+      body: JSON.stringify({ raison }),
+    });
   }
 }
 

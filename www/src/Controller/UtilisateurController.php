@@ -87,7 +87,7 @@ class UtilisateurController extends BaseController
     }
 
     /**
-     * PUT /api/utilisateur/{id} - Modification du profil
+     * PUT /api/utilisateur/{id} - Mise à jour du profil
      */
     public function update(int $id): void
     {
@@ -97,32 +97,34 @@ class UtilisateurController extends BaseController
                 return;
             }
 
+            // Authentification requise
             if (!$this->requireAuth()) {
                 return;
             }
 
-            // Vérifier que c'est son propre profil ou qu'il est admin
-            $currentUserId = $this->getCurrentUserId();
-            $currentUser = $this->utilisateurService->getUtilisateurById($currentUserId);
+            $currentUserId = $_SESSION['current_user_id'];
 
-            if ($currentUserId !== $id && !$currentUser->isAdministrateur()) {
-                $this->sendError('Permissions insuffisantes', 403);
-                return;
+            // Vérifier que l'utilisateur peut modifier ce profil (propriétaire ou admin)
+            if ($id !== $currentUserId) {
+                $currentUser = $this->utilisateurService->getUtilisateurById($currentUserId);
+                if (!$currentUser || !$currentUser->isAdministrateur()) {
+                    $this->sendError('Permissions insuffisantes', 403);
+                    return;
+                }
             }
 
             $data = $this->getJsonInput();
             if (!$data) {
-                $this->sendError('Données JSON invalides', 400);
+                $this->sendError('Données manquantes', 400);
                 return;
             }
 
             $user = $this->utilisateurService->mettreAJourProfil($id, $data);
 
-            $this->sendSuccess([
-                'id' => $user->getId(),
-                'email' => $user->getEmail(),
-                'pseudonyme' => $user->getPseudonyme()
-            ], 'Profil mis à jour avec succès');
+            $this->sendSuccess(
+                $user->toArray(),
+                'Profil mis à jour avec succès'
+            );
 
         } catch (\Exception $e) {
             $this->handleException($e);
@@ -165,6 +167,105 @@ class UtilisateurController extends BaseController
             } else {
                 $this->sendError('Erreur lors de la fermeture du compte', 500);
             }
+
+        } catch (\Exception $e) {
+            $this->handleException($e);
+        }
+    }
+
+    /**
+     * POST /api/utilisateur/{id}/valider - Validation d'un compte par un administrateur
+     */
+    public function validerCompte(int $id): void
+    {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                $this->sendError('Méthode non autorisée', 405);
+                return;
+            }
+
+            // Authentification requise avec rôle admin
+            if (!$this->requireRole('administrateur')) {
+                return;
+            }
+
+            $administrateurId = $_SESSION['current_user_id'];
+
+            $success = $this->utilisateurService->validerCompte($id, $administrateurId);
+
+            if ($success) {
+                $this->sendSuccess(
+                    ['id' => $id],
+                    'Compte validé avec succès'
+                );
+            } else {
+                $this->sendError('Impossible de valider le compte', 500);
+            }
+
+        } catch (\Exception $e) {
+            $this->handleException($e);
+        }
+    }
+
+    /**
+     * POST /api/utilisateur/{id}/refuser - Refus d'un compte par un administrateur
+     */
+    public function refuserCompte(int $id): void
+    {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                $this->sendError('Méthode non autorisée', 405);
+                return;
+            }
+
+            // Authentification requise avec rôle admin
+            if (!$this->requireRole('administrateur')) {
+                return;
+            }
+
+            $data = $this->getJsonInput();
+            $raison = $data['raison'] ?? '';
+
+            $administrateurId = $_SESSION['current_user_id'];
+
+            $success = $this->utilisateurService->refuserCompte($id, $administrateurId, $raison);
+
+            if ($success) {
+                $this->sendSuccess(
+                    ['id' => $id],
+                    'Compte refusé'
+                );
+            } else {
+                $this->sendError('Impossible de refuser le compte', 500);
+            }
+
+        } catch (\Exception $e) {
+            $this->handleException($e);
+        }
+    }
+
+    /**
+     * GET /api/utilisateur/en-attente - Liste des comptes en attente de validation
+     */
+    public function getComptesEnAttente(): void
+    {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+                $this->sendError('Méthode non autorisée', 405);
+                return;
+            }
+
+            // Authentification requise avec rôle admin
+            if (!$this->requireRole('administrateur')) {
+                return;
+            }
+
+            $comptes = $this->utilisateurService->getComptesEnAttente();
+
+            $this->sendSuccess(
+                array_map(fn($compte) => $compte->toArray(), $comptes),
+                'Comptes en attente récupérés'
+            );
 
         } catch (\Exception $e) {
             $this->handleException($e);
