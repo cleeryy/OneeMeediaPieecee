@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestion des comptes - OneMediaPiece</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="main-layout">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <a href="/" class="logo">OneMediaPiece</a>
+          <nav class="nav">
+            <ul class="nav-menu">
+              <li><a href="/" class="nav-link">Accueil</a></li>
+              <li><a href="/about" class="nav-link">À propos</a></li>
+
+              <!-- Éléments pour visiteurs non connectés -->
+              <li data-auth="false">
+                <a href="/register" class="nav-link">S'inscrire</a>
+              </li>
+              <li data-auth="false">
+                <a href="/login" class="nav-link">Se connecter</a>
+              </li>
+
+              <!-- Éléments pour utilisateurs connectés -->
+              <li data-auth="true">
+                <a href="/dashboard" class="nav-link">Tableau de bord</a>
+              </li>
+              <li data-auth="true" data-role="admin">
+                <a href="/admin-comptes" class="nav-link active">Gestion des comptes</a>
+              </li>
+              <li data-auth="true" data-role="moderator">
+                <a href="/moderation" class="nav-link">Modération</a>
+              </li>
+            </ul>
+
+            <!-- Menu utilisateur -->
+            <div class="user-menu" data-auth="true">
+              <div class="user-menu-toggle" id="userMenuToggle">
+                <div class="user-avatar" data-user="avatar">A</div>
+                <span data-user="name">Admin</span>
+              </div>
+              <div class="user-menu-dropdown" id="userMenuDropdown">
+                <a href="/profile" class="user-menu-item">Mon profil</a>
+                <a href="/dashboard" class="user-menu-item">Mes articles</a>
+                <a href="#" class="user-menu-item" id="logoutBtn">Déconnexion</a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+      <div class="container">
+        <div class="page-header mb-lg">
+          <h1 class="page-title">Gestion des comptes</h1>
+          <p class="page-subtitle">
+            Validation et refus des comptes utilisateurs
+          </p>
+        </div>
+
+        <!-- Statistiques -->
+        <div class="stats-grid mb-lg">
+          <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-content">
+              <div class="stat-value" id="comptesEnAttente">0</div>
+              <div class="stat-label">Comptes en attente</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-content">
+              <div class="stat-value" id="comptesValides">0</div>
+              <div class="stat-label">Comptes validés aujourd'hui</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">❌</div>
+            <div class="stat-content">
+              <div class="stat-value" id="comptesRefuses">0</div>
+              <div class="stat-label">Comptes refusés aujourd'hui</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Liste des comptes en attente -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Comptes en attente de validation</h2>
+            <div class="card-actions">
+              <button 
+                type="button" 
+                class="btn btn-outline-primary btn-sm" 
+                id="refreshBtn"
+              >
+                🔄 Actualiser
+              </button>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="loading-container" id="loadingComptes">
+              <div class="loading-spinner"></div>
+              <p>Chargement des comptes...</p>
+            </div>
+
+            <div class="empty-state" id="emptyState" style="display: none">
+              <div class="empty-icon">✅</div>
+              <h3>Aucun compte en attente</h3>
+              <p>Tous les comptes ont été traités !</p>
+            </div>
+
+            <div class="table-responsive" id="comptesTable" style="display: none">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Utilisateur</th>
+                    <th>Email</th>
+                    <th>Date d'inscription</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="comptesTableBody">
+                  <!-- Les comptes seront ajoutés ici dynamiquement -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="/privacy" class="footer-link">Politique de confidentialité</a>
+            <a href="/terms" class="footer-link">Conditions d'utilisation</a>
+            <a href="/contact" class="footer-link">Contact</a>
+          </div>
+          <p class="footer-copyright">
+            © 2025 OneMediaPiece. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Modal de confirmation -->
+    <div class="modal" id="confirmModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modalTitle">Confirmer l'action</h3>
+        </div>
+        <div class="modal-body">
+          <p id="modalMessage">Êtes-vous sûr de vouloir effectuer cette action ?</p>
+          <div class="form-group" id="raisonGroup" style="display: none">
+            <label for="raisonRefus" class="form-label">Raison du refus</label>
+            <textarea 
+              id="raisonRefus" 
+              class="form-input" 
+              rows="3"
+              placeholder="Expliquez pourquoi ce compte est refusé..."
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelBtn">Annuler</button>
+          <button type="button" class="btn btn-primary" id="confirmBtn">Confirmer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Vérifier les permissions d'accès
+        if (!auth.requireAuth('administrateur')) {
+          return;
+        }
+
+        // Éléments DOM
+        const loadingComptes = document.getElementById("loadingComptes");
+        const emptyState = document.getElementById("emptyState");
+        const comptesTable = document.getElementById("comptesTable");
+        const comptesTableBody = document.getElementById("comptesTableBody");
+        const refreshBtn = document.getElementById("refreshBtn");
+        const confirmModal = document.getElementById("confirmModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalMessage = document.getElementById("modalMessage");
+        const raisonGroup = document.getElementById("raisonGroup");
+        const raisonRefus = document.getElementById("raisonRefus");
+        const cancelBtn = document.getElementById("cancelBtn");
+        const confirmBtn = document.getElementById("confirmBtn");
+
+        let actionEnCours = null;
+
+        // Initialiser l'interface utilisateur
+        auth.updateUIForAuthState();
+
+        // Charger les comptes en attente
+        chargerComptesEnAttente();
+
+        // Event listeners
+        refreshBtn.addEventListener("click", chargerComptesEnAttente);
+        cancelBtn.addEventListener("click", fermerModal);
+
+        confirmBtn.addEventListener("click", async () => {
+          if (actionEnCours) {
+            await executeAction(actionEnCours);
+            fermerModal();
+          }
+        });
+
+        async function chargerComptesEnAttente() {
+          try {
+            showLoading();
+
+            const response = await auth.api.getComptesEnAttente();
+
+            if (response.success) {
+              afficherComptes(response.data);
+              updateStats(response.data);
+            } else {
+              throw new Error(response.message || "Erreur lors du chargement");
+            }
+          } catch (error) {
+            console.error("Erreur:", error);
+            auth.showMessage(error.message, "error");
+            showEmpty();
+          }
+        }
+
+        function afficherComptes(comptes) {
+          if (comptes.length === 0) {
+            showEmpty();
+            return;
+          }
+
+          comptesTableBody.innerHTML = "";
+
+          comptes.forEach((compte) => {
+            const row = createCompteRow(compte);
+            comptesTableBody.appendChild(row);
+          });
+
+          showTable();
+        }
+
+        function createCompteRow(compte) {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>
+              <div class="user-info">
+                <div class="user-avatar user-avatar-sm">${compte.pseudonyme.charAt(0).toUpperCase()}</div>
+                <div class="user-details">
+                  <div class="user-name">${compte.pseudonyme}</div>
+                  <div class="user-type">${getTypeLabel(compte.type_compte)}</div>
+                </div>
+              </div>
+            </td>
+            <td>${compte.email}</td>
+            <td>${formatDate(compte.date_creation)}</td>
+            <td>
+              <div class="action-buttons">
+                <button 
+                  type="button" 
+                  class="btn btn-success btn-sm" 
+                  onclick="validerCompte(${compte.id}, '${compte.pseudonyme}')"
+                >
+                  ✅ Valider
+                </button>
+                <button 
+                  type="button" 
+                  class="btn btn-danger btn-sm" 
+                  onclick="refuserCompte(${compte.id}, '${compte.pseudonyme}')"
+                >
+                  ❌ Refuser
+                </button>
+              </div>
+            </td>
+          `;
+          return row;
+        }
+
+        window.validerCompte = function(userId, pseudonyme) {
+          actionEnCours = {
+            type: 'valider',
+            userId: userId,
+            pseudonyme: pseudonyme
+          };
+
+          modalTitle.textContent = "Valider le compte";
+          modalMessage.textContent = `Êtes-vous sûr de vouloir valider le compte de "${pseudonyme}" ? L'utilisateur pourra alors se connecter.`;
+          raisonGroup.style.display = "none";
+          
+          confirmModal.style.display = "block";
+        };
+
+        window.refuserCompte = function(userId, pseudonyme) {
+          actionEnCours = {
+            type: 'refuser',
+            userId: userId,
+            pseudonyme: pseudonyme
+          };
+
+          modalTitle.textContent = "Refuser le compte";
+          modalMessage.textContent = `Êtes-vous sûr de vouloir refuser le compte de "${pseudonyme}" ? Cette action empêchera définitivement l'utilisateur de se connecter.`;
+          raisonGroup.style.display = "block";
+          raisonRefus.value = "";
+          
+          confirmModal.style.display = "block";
+        };
+
+        async function executeAction(action) {
+          try {
+            let response;
+            
+            if (action.type === 'valider') {
+              response = await auth.api.validerCompte(action.userId);
+            } else if (action.type === 'refuser') {
+              const raison = raisonRefus.value.trim();
+              response = await auth.api.refuserCompte(action.userId, raison);
+            }
+
+            if (response.success) {
+              auth.showMessage(response.message, "success");
+              chargerComptesEnAttente();
+            } else {
+              throw new Error(response.message);
+            }
+          } catch (error) {
+            console.error("Erreur:", error);
+            auth.showMessage(error.message, "error");
+          }
+
+          actionEnCours = null;
+        }
+
+        function fermerModal() {
+          confirmModal.style.display = "none";
+          actionEnCours = null;
+          raisonRefus.value = "";
+        }
+
+        function showLoading() {
+          loadingComptes.style.display = "block";
+          emptyState.style.display = "none";
+          comptesTable.style.display = "none";
+        }
+
+        function showEmpty() {
+          loadingComptes.style.display = "none";
+          emptyState.style.display = "block";
+          comptesTable.style.display = "none";
+        }
+
+        function showTable() {
+          loadingComptes.style.display = "none";
+          emptyState.style.display = "none";
+          comptesTable.style.display = "block";
+        }
+
+        function updateStats(comptes) {
+          document.getElementById("comptesEnAttente").textContent = comptes.length;
+          // Note: Pour les stats quotidiennes, il faudrait implémenter des endpoints dédiés
+        }
+
+        function getTypeLabel(type) {
+          const types = {
+            'redacteur': 'Rédacteur',
+            'moderateur': 'Modérateur',
+            'administrateur': 'Administrateur'
+          };
+          return types[type] || type;
+        }
+
+        function formatDate(dateString) {
+          const date = new Date(dateString);
+          return date.toLocaleDateString('fr-FR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+        }
+
+        // Fermer la modal en cliquant en dehors
+        confirmModal.addEventListener("click", (e) => {
+          if (e.target === confirmModal) {
+            fermerModal();
+          }
+        });
+      });
+    </script>
+  </body>
+</html> 

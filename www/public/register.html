@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inscription - OneMediaPiece</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="main-layout">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <a href="/" class="logo">OneMediaPiece</a>
+          <nav class="nav">
+            <ul class="nav-menu">
+              <li><a href="/" class="nav-link">Accueil</a></li>
+              <li>
+                <a href="/register" class="nav-link active" data-auth="false"
+                  >S'inscrire</a
+                >
+              </li>
+              <li>
+                <a href="/login" class="nav-link" data-auth="false"
+                  >Se connecter</a
+                >
+              </li>
+              <li>
+                <a href="/dashboard" class="nav-link" data-auth="true"
+                  >Tableau de bord</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+      <div class="container">
+        <div class="d-flex justify-center">
+          <div class="card" style="max-width: 450px; width: 100%">
+            <div class="card-header text-center">
+              <h1 class="card-title">Créer un compte</h1>
+              <p class="card-subtitle">Rejoignez la communauté OneMediaPiece</p>
+            </div>
+
+            <div class="card-body">
+              <form id="registerForm" novalidate>
+                <div class="form-group">
+                  <label for="email" class="form-label required">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-input"
+                    required
+                    placeholder="votre@email.com"
+                  />
+                  <div class="form-help">
+                    Votre email sera utilisé pour la connexion
+                  </div>
+                  <div class="form-error" id="email-error"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="pseudonyme" class="form-label required"
+                    >Pseudonyme</label
+                  >
+                  <input
+                    type="text"
+                    id="pseudonyme"
+                    name="pseudonyme"
+                    class="form-input"
+                    required
+                    placeholder="Votre nom d'affichage"
+                    maxlength="50"
+                  />
+                  <div class="form-help">
+                    Minimum 3 caractères, maximum 50 caractères
+                  </div>
+                  <div class="form-error" id="pseudonyme-error"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="password" class="form-label required"
+                    >Mot de passe</label
+                  >
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-input"
+                    required
+                    placeholder="Choisissez un mot de passe"
+                  />
+                  <div class="form-help">Minimum 6 caractères</div>
+                  <div class="form-error" id="password-error"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="confirmPassword" class="form-label required"
+                    >Confirmer le mot de passe</label
+                  >
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    class="form-input"
+                    required
+                    placeholder="Retapez votre mot de passe"
+                  />
+                  <div class="form-error" id="confirmPassword-error"></div>
+                </div>
+
+                <div class="form-group">
+                  <div class="form-check">
+                    <input
+                      type="checkbox"
+                      id="terms"
+                      name="terms"
+                      class="form-check-input"
+                      required
+                    />
+                    <label for="terms" class="form-check-label">
+                      J'accepte les
+                      <a href="/terms" target="_blank" class="text-accent"
+                        >conditions d'utilisation</a
+                      >
+                      et la
+                      <a href="/privacy" target="_blank" class="text-accent"
+                        >politique de confidentialité</a
+                      >
+                    </label>
+                  </div>
+                  <div class="form-error" id="terms-error"></div>
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-block">
+                    Créer mon compte
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="card-footer text-center">
+              <p class="text-small">
+                Déjà un compte ?
+                <a href="/login" class="text-accent">Se connecter</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="/privacy" class="footer-link"
+              >Politique de confidentialité</a
+            >
+            <a href="/terms" class="footer-link">Conditions d'utilisation</a>
+            <a href="/contact" class="footer-link">Contact</a>
+          </div>
+          <p class="footer-copyright">
+            © 2025 OneMediaPiece. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Rediriger si déjà connecté
+        if (auth.api.isAuthenticated()) {
+          window.location.href = "/dashboard";
+          return;
+        }
+
+        const form = document.getElementById("registerForm");
+        const inputs = {
+          email: document.getElementById("email"),
+          pseudonyme: document.getElementById("pseudonyme"),
+          password: document.getElementById("password"),
+          confirmPassword: document.getElementById("confirmPassword"),
+          terms: document.getElementById("terms"),
+        };
+
+        // Validation en temps réel
+        Object.keys(inputs).forEach((field) => {
+          const input = inputs[field];
+          if (input.type !== "checkbox") {
+            input.addEventListener("blur", () => validateField(field));
+          }
+        });
+
+        inputs.confirmPassword.addEventListener("input", () => {
+          if (inputs.confirmPassword.value) {
+            validateField("confirmPassword");
+          }
+        });
+
+        // Soumission du formulaire
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          if (validateForm()) {
+            const formData = new FormData(form);
+            const userData = {
+              email: formData.get("email"),
+              pseudonyme: formData.get("pseudonyme"),
+              password: formData.get("password"),
+            };
+
+            try {
+              await auth.register(userData);
+            } catch (error) {
+              console.error("Erreur d'inscription:", error);
+            }
+          }
+        });
+
+        function validateField(fieldName) {
+          switch (fieldName) {
+            case "email":
+              return validateEmail();
+            case "pseudonyme":
+              return validatePseudonyme();
+            case "password":
+              return validatePassword();
+            case "confirmPassword":
+              return validateConfirmPassword();
+            case "terms":
+              return validateTerms();
+            default:
+              return true;
+          }
+        }
+
+        function validateEmail() {
+          const email = inputs.email.value.trim();
+          const errorDiv = document.getElementById("email-error");
+
+          if (!email) {
+            showFieldError(inputs.email, errorDiv, "L'email est requis");
+            return false;
+          }
+
+          if (!isValidEmail(email)) {
+            showFieldError(inputs.email, errorDiv, "Format d'email invalide");
+            return false;
+          }
+
+          clearFieldError(inputs.email, errorDiv);
+          return true;
+        }
+
+        function validatePseudonyme() {
+          const pseudonyme = inputs.pseudonyme.value.trim();
+          const errorDiv = document.getElementById("pseudonyme-error");
+
+          if (!pseudonyme) {
+            showFieldError(
+              inputs.pseudonyme,
+              errorDiv,
+              "Le pseudonyme est requis"
+            );
+            return false;
+          }
+
+          if (pseudonyme.length < 3) {
+            showFieldError(
+              inputs.pseudonyme,
+              errorDiv,
+              "Le pseudonyme doit contenir au moins 3 caractères"
+            );
+            return false;
+          }
+
+          if (pseudonyme.length > 50) {
+            showFieldError(
+              inputs.pseudonyme,
+              errorDiv,
+              "Le pseudonyme ne peut pas dépasser 50 caractères"
+            );
+            return false;
+          }
+
+          clearFieldError(inputs.pseudonyme, errorDiv);
+          return true;
+        }
+
+        function validatePassword() {
+          const password = inputs.password.value;
+          const errorDiv = document.getElementById("password-error");
+
+          if (!password) {
+            showFieldError(
+              inputs.password,
+              errorDiv,
+              "Le mot de passe est requis"
+            );
+            return false;
+          }
+
+          if (password.length < 6) {
+            showFieldError(
+              inputs.password,
+              errorDiv,
+              "Le mot de passe doit contenir au moins 6 caractères"
+            );
+            return false;
+          }
+
+          clearFieldError(inputs.password, errorDiv);
+
+          // Re-valider la confirmation si elle a été saisie
+          if (inputs.confirmPassword.value) {
+            validateConfirmPassword();
+          }
+
+          return true;
+        }
+
+        function validateConfirmPassword() {
+          const password = inputs.password.value;
+          const confirmPassword = inputs.confirmPassword.value;
+          const errorDiv = document.getElementById("confirmPassword-error");
+
+          if (!confirmPassword) {
+            showFieldError(
+              inputs.confirmPassword,
+              errorDiv,
+              "La confirmation du mot de passe est requise"
+            );
+            return false;
+          }
+
+          if (password !== confirmPassword) {
+            showFieldError(
+              inputs.confirmPassword,
+              errorDiv,
+              "Les mots de passe ne correspondent pas"
+            );
+            return false;
+          }
+
+          clearFieldError(inputs.confirmPassword, errorDiv);
+          return true;
+        }
+
+        function validateTerms() {
+          const terms = inputs.terms.checked;
+          const errorDiv = document.getElementById("terms-error");
+
+          if (!terms) {
+            showFieldError(
+              inputs.terms,
+              errorDiv,
+              "Vous devez accepter les conditions d'utilisation"
+            );
+            return false;
+          }
+
+          clearFieldError(inputs.terms, errorDiv);
+          return true;
+        }
+
+        function validateForm() {
+          const validations = [
+            validateEmail(),
+            validatePseudonyme(),
+            validatePassword(),
+            validateConfirmPassword(),
+            validateTerms(),
+          ];
+
+          return validations.every((isValid) => isValid);
+        }
+
+        function showFieldError(input, errorDiv, message) {
+          input.classList.add("is-invalid");
+          input.classList.remove("is-valid");
+          errorDiv.textContent = message;
+          errorDiv.style.display = "block";
+        }
+
+        function clearFieldError(input, errorDiv) {
+          input.classList.remove("is-invalid");
+          input.classList.add("is-valid");
+          errorDiv.textContent = "";
+          errorDiv.style.display = "none";
+        }
+
+        function isValidEmail(email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -6,7 +6,7 @@ use InvalidArgumentException;
 
 class CommentaireEntity
 {
-    private int $id;
+    private ?int $id = null;
     private string $contenu;
     private DateTime $dateCreation;
     private DateTime $dateModification;
@@ -41,18 +41,18 @@ class CommentaireEntity
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id 
+     * @param ?int $id 
      * @return self
      */
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;

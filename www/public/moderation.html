@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interface de modération - OneMediaPiece</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="main-layout">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <a href="/" class="logo">OneMediaPiece</a>
+          <nav class="nav">
+            <ul class="nav-menu">
+              <li><a href="/" class="nav-link">Accueil</a></li>
+              <li><a href="/dashboard" class="nav-link">Tableau de bord</a></li>
+              <li>
+                <a href="/moderation" class="nav-link active">Modération</a>
+              </li>
+            </ul>
+
+            <div class="user-menu">
+              <div class="user-menu-toggle" id="userMenuToggle">
+                <div class="user-avatar" data-user="avatar">JD</div>
+                <span data-user="name">John Doe</span>
+              </div>
+              <div class="user-menu-dropdown" id="userMenuDropdown">
+                <a href="/profile" class="user-menu-item">Mon profil</a>
+                <a href="/dashboard" class="user-menu-item">Mes articles</a>
+                <a href="#" class="user-menu-item" id="logoutBtn"
+                  >Déconnexion</a
+                >
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+      <div class="container">
+        <h1 class="text-center mb-xl">Interface de modération</h1>
+
+        <!-- Statistiques de modération -->
+        <div class="grid-4 mb-xl">
+          <div class="card">
+            <div class="card-body text-center">
+              <div
+                class="user-stat-number text-warning"
+                id="statsPendingArticles"
+              >
+                0
+              </div>
+              <div class="user-stat-label">Articles en attente</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body text-center">
+              <div
+                class="user-stat-number text-warning"
+                id="statsPendingComments"
+              >
+                0
+              </div>
+              <div class="user-stat-label">Commentaires en attente</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body text-center">
+              <div class="user-stat-number text-info" id="statsReports">0</div>
+              <div class="user-stat-label">Signalements</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body text-center">
+              <div class="user-stat-number text-success" id="statsModerated">
+                0
+              </div>
+              <div class="user-stat-label">Modérations aujourd'hui</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Onglets de modération -->
+        <div class="tabs">
+          <div class="tabs-nav">
+            <button class="tab-button active" data-tab="articles">
+              📝 Articles en attente
+            </button>
+            <button class="tab-button" data-tab="comments">
+              💬 Commentaires en attente
+            </button>
+            <button class="tab-button" data-tab="reports" data-role="admin">
+              🚨 Signalements
+            </button>
+            <button class="tab-button" data-tab="history">📋 Historique</button>
+          </div>
+        </div>
+
+        <!-- Onglet Articles -->
+        <div id="tab-articles" class="tab-content active">
+          <div class="d-flex justify-between align-center mb-lg">
+            <h2>Articles en attente de modération</h2>
+            <button class="btn btn-outline-primary" id="refreshArticles">
+              🔄 Actualiser
+            </button>
+          </div>
+
+          <!-- Loading -->
+          <div id="articlesLoading" class="text-center p-lg">
+            <div class="spinner"></div>
+            <p class="mt-sm">Chargement des articles...</p>
+          </div>
+
+          <!-- Liste des articles -->
+          <div id="articlesList" class="cards-list">
+            <!-- Articles en attente seront injectés ici -->
+          </div>
+
+          <!-- Message si aucun article -->
+          <div id="noArticles" class="text-center p-xl" style="display: none">
+            <h3>Aucun article en attente</h3>
+            <p class="text-muted">Tous les articles ont été modérés !</p>
+          </div>
+        </div>
+
+        <!-- Onglet Commentaires -->
+        <div id="tab-comments" class="tab-content">
+          <div class="d-flex justify-between align-center mb-lg">
+            <h2>Commentaires en attente de modération</h2>
+            <button class="btn btn-outline-primary" id="refreshComments">
+              🔄 Actualiser
+            </button>
+          </div>
+
+          <!-- Loading -->
+          <div id="commentsLoading" class="text-center p-lg">
+            <div class="spinner"></div>
+            <p class="mt-sm">Chargement des commentaires...</p>
+          </div>
+
+          <!-- Liste des commentaires -->
+          <div id="commentsList" class="cards-list">
+            <!-- Commentaires en attente seront injectés ici -->
+          </div>
+
+          <!-- Message si aucun commentaire -->
+          <div id="noComments" class="text-center p-xl" style="display: none">
+            <h3>Aucun commentaire en attente</h3>
+            <p class="text-muted">Tous les commentaires ont été modérés !</p>
+          </div>
+        </div>
+
+        <!-- Onglet Signalements (Admin uniquement) -->
+        <div id="tab-reports" class="tab-content">
+          <div class="d-flex justify-between align-center mb-lg">
+            <h2>Signalements d'utilisateurs</h2>
+            <button class="btn btn-outline-primary" id="refreshReports">
+              🔄 Actualiser
+            </button>
+          </div>
+
+          <div id="reportsList" class="cards-list">
+            <!-- Signalements seront injectés ici -->
+          </div>
+
+          <div id="noReports" class="text-center p-xl" style="display: none">
+            <h3>Aucun signalement</h3>
+            <p class="text-muted">
+              Aucun utilisateur n'a été signalé récemment.
+            </p>
+          </div>
+        </div>
+
+        <!-- Onglet Historique -->
+        <div id="tab-history" class="tab-content">
+          <div class="d-flex justify-between align-center mb-lg">
+            <h2>Historique des modérations</h2>
+            <div class="d-flex" style="gap: 1rem">
+              <select id="historyFilter" class="form-select">
+                <option value="">Toutes les actions</option>
+                <option value="refus_article">Refus d'articles</option>
+                <option value="refus_commentaire">Refus de commentaires</option>
+                <option value="signalement">Signalements</option>
+              </select>
+              <button class="btn btn-outline-primary" id="refreshHistory">
+                🔄 Actualiser
+              </button>
+            </div>
+          </div>
+
+          <div id="historyList" class="cards-list">
+            <!-- Historique sera injecté ici -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="/privacy" class="footer-link"
+              >Politique de confidentialité</a
+            >
+            <a href="/terms" class="footer-link">Conditions d'utilisation</a>
+            <a href="/contact" class="footer-link">Contact</a>
+          </div>
+          <p class="footer-copyright">
+            © 2025 OneMediaPiece. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Modal de modération -->
+    <div class="modal-overlay" id="moderationModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title" id="moderationModalTitle">Modérer</h3>
+          <button class="modal-close" id="closeModerationModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p id="moderationModalMessage">Raison de la modération :</p>
+          <div class="form-group">
+            <textarea
+              id="moderationModalReason"
+              class="form-input form-textarea"
+              placeholder="Expliquez pourquoi vous refusez ce contenu..."
+              rows="4"
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" id="cancelModeration">
+            Annuler
+          </button>
+          <button class="btn btn-warning" id="confirmModeration">
+            Confirmer le refus
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/moderation.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Vérifier les permissions
+        if (!auth.requireAuth() || !auth.api.hasRole("moderator")) {
+          return;
+        }
+
+        // Initialiser l'interface de modération
+        const moderation = new ModerationInterface();
+        moderation.init();
+      });
+    </script>
+  </body>
+</html>

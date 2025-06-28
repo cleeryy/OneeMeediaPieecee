@@ -1,0 +1,1272 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OneMediaPiece - Présentation Projet</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="slide-nav">
+      <div class="nav-left">
+        <button id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+        <span id="slideCounter">1 / 26</span>
+        <button id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+      </div>
+      <div class="nav-center">
+        <h3>OneMediaPiece - Soutenance</h3>
+      </div>
+      <div class="nav-right">
+        <button id="fullscreenBtn"><i class="fas fa-expand"></i></button>
+      </div>
+    </nav>
+
+    <!-- Slides Container -->
+    <div class="slideshow-container">
+      <!-- Slide 1: Page de titre -->
+      <section class="slide active" data-slide="1">
+        <div class="slide-content title-slide">
+          <h1>OneMediaPiece</h1>
+          <h2>Plateforme de Blog Éditorial</h2>
+          <div class="project-info">
+            <p><i class="fas fa-user"></i> Cléry A-Ferradou</p>
+            <p><i class="fas fa-calendar"></i> Soutenance - Juin 2025</p>
+            <p><i class="fas fa-code"></i> Projet Full-Stack PHP</p>
+          </div>
+          <div class="project-logo">
+            <i class="fas fa-newspaper"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 2: Plan de la présentation -->
+      <section class="slide" data-slide="2">
+        <div class="slide-content">
+          <h1>Plan de la présentation</h1>
+          <ul class="plan-list">
+            <li><i class="fas fa-info-circle"></i> Introduction du projet</li>
+            <li>
+              <i class="fas fa-drafting-compass"></i> Analyse et conception
+            </li>
+            <li><i class="fas fa-server"></i> Architecture technique</li>
+            <li><i class="fas fa-code"></i> Développement</li>
+            <li><i class="fab fa-docker"></i> Infrastructure Docker</li>
+            <li><i class="fas fa-desktop"></i> Démonstration</li>
+            <li>
+              <i class="fas fa-tools"></i> Difficultés et axes d'amélioration
+            </li>
+            <li><i class="fas fa-question-circle"></i> Questions</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 3: Contexte du projet -->
+      <section class="slide" data-slide="3">
+        <div class="slide-content">
+          <h1>Contexte du projet</h1>
+          <div class="context-grid">
+            <div class="context-card client">
+              <i class="fas fa-building"></i>
+              <h3>Client</h3>
+              <p>Journal OneMediaPiece</p>
+            </div>
+            <div class="context-card need">
+              <i class="fas fa-bullseye"></i>
+              <h3>Besoin</h3>
+              <p>Plateforme éditoriale type MediaPart</p>
+            </div>
+            <div class="context-card objective">
+              <i class="fas fa-rocket"></i>
+              <h3>Objectif</h3>
+              <p>
+                Site web dynamique avec système de publication et modération
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Cahier des charges - Fonctionnalités principales -->
+      <section class="slide" data-slide="4">
+        <div class="slide-content">
+          <h1>Cahier des charges - Fonctionnalités principales</h1>
+          <div class="features-grid">
+            <div class="feature-card">
+              <i class="fas fa-users"></i>
+              <h3>Gestion des comptes</h3>
+              <ul>
+                <li>Inscription utilisateur</li>
+                <li>Validation par admin</li>
+                <li>Rôles (rédacteur, modérateur, admin)</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-newspaper"></i>
+              <h3>Gestion des articles</h3>
+              <ul>
+                <li>Création d'articles</li>
+                <li>Système de modération</li>
+                <li>Visibilité (public/privé)</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-comments"></i>
+              <h3>Système de commentaires</h3>
+              <ul>
+                <li>Publication commentaires</li>
+                <li>Modération des contenus</li>
+                <li>Affichage en accordéon</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-shield-alt"></i>
+              <h3>Modération</h3>
+              <ul>
+                <li>Circuit de validation</li>
+                <li>États multiples</li>
+                <li>Traçabilité des actions</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Fonctionnalités bonus -->
+      <section class="slide" data-slide="5">
+        <div class="slide-content">
+          <h1>Fonctionnalités bonus</h1>
+          <div class="bonus-features">
+            <div class="bonus-item">
+              <i class="fas fa-history"></i>
+              <div>
+                <h3>Traçabilité des actions</h3>
+                <p>
+                  Historique complet des actions de modération avec horodatage
+                </p>
+              </div>
+            </div>
+            <div class="bonus-item">
+              <i class="fas fa-ban"></i>
+              <div>
+                <h3>Historique des refus</h3>
+                <p>
+                  Conservation des raisons de refus pour amélioration continue
+                </p>
+              </div>
+            </div>
+            <div class="bonus-item">
+              <i class="fas fa-flag"></i>
+              <div>
+                <h3>Système de signalement</h3>
+                <p>Signalement d'utilisateurs par la communauté</p>
+              </div>
+            </div>
+            <div class="bonus-item">
+              <i class="fas fa-trash-restore"></i>
+              <div>
+                <h3>Audit trail</h3>
+                <p>Gestion des suppressions avec possibilité de restauration</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Analyse des besoins -->
+      <section class="slide" data-slide="6">
+        <div class="slide-content">
+          <h1>Analyse des besoins</h1>
+          <div class="user-profiles">
+            <div class="profile-card visitor">
+              <i class="fas fa-eye"></i>
+              <h3>Visiteur anonyme</h3>
+              <ul>
+                <li>Consultation des articles publics</li>
+                <li>Lecture des commentaires</li>
+                <li>Pas de création de contenu</li>
+              </ul>
+            </div>
+            <div class="profile-card writer">
+              <i class="fas fa-pen"></i>
+              <h3>Rédacteur</h3>
+              <ul>
+                <li>Création d'articles</li>
+                <li>Publication de commentaires</li>
+                <li>Gestion de son profil</li>
+              </ul>
+            </div>
+            <div class="profile-card moderator">
+              <i class="fas fa-gavel"></i>
+              <h3>Modérateur</h3>
+              <ul>
+                <li>Validation des contenus</li>
+                <li>Modération des commentaires</li>
+                <li>Signalement d'utilisateurs</li>
+              </ul>
+            </div>
+            <div class="profile-card admin">
+              <i class="fas fa-crown"></i>
+              <h3>Administrateur</h3>
+              <ul>
+                <li>Gestion globale</li>
+                <li>Validation des comptes</li>
+                <li>Configuration système</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Modèle Conceptuel de Données -->
+      <section class="slide" data-slide="7">
+        <div class="slide-content">
+          <h1>Modèle Conceptuel de Données (MCD)</h1>
+          <div class="mcd-container">
+            <div class="entity-box">
+              <h3>Utilisateur</h3>
+              <ul>
+                <li>id (PK)</li>
+                <li>email</li>
+                <li>pseudonyme</li>
+                <li>typecompte</li>
+                <li>estbanni</li>
+                <li>enattente</li>
+                <li>datecreation</li>
+              </ul>
+            </div>
+            <div class="entity-box">
+              <h3>Article</h3>
+              <ul>
+                <li>id (PK)</li>
+                <li>titre</li>
+                <li>contenu</li>
+                <li>etat</li>
+                <li>visibilite</li>
+                <li>utilisateurid (FK)</li>
+                <li>datecreation</li>
+              </ul>
+            </div>
+            <div class="entity-box">
+              <h3>Commentaire</h3>
+              <ul>
+                <li>id (PK)</li>
+                <li>contenu</li>
+                <li>etat</li>
+                <li>utilisateurid (FK)</li>
+                <li>articleid (FK)</li>
+                <li>datecreation</li>
+              </ul>
+            </div>
+            <div class="entity-box">
+              <h3>Moderation</h3>
+              <ul>
+                <li>id (PK)</li>
+                <li>typeaction</li>
+                <li>description</li>
+                <li>moderateurid (FK)</li>
+                <li>dateaction</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Schéma de base de données -->
+      <section class="slide" data-slide="8">
+        <div class="slide-content">
+          <h1>Schéma de base de données</h1>
+          <div class="database-schema">
+            <div class="code-container">
+              <pre><code class="sql">
+-- Création des tables principales
+CREATE TABLE utilisateur (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    pseudonyme VARCHAR(100) NOT NULL,
+    motdepasse VARCHAR(255) NOT NULL,
+    typecompte ENUM('redacteur', 'moderateur', 'admin') DEFAULT 'redacteur',
+    estbanni BOOLEAN DEFAULT FALSE,
+    datecreation DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE article (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titre VARCHAR(255) NOT NULL,
+    contenu TEXT NOT NULL,
+    etat ENUM('enattente', 'accepte', 'refuse') DEFAULT 'enattente',
+    visibilite ENUM('public', 'prive') DEFAULT 'public',
+    utilisateurid INT NOT NULL,
+    datecreation DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (utilisateurid) REFERENCES utilisateur(id)
+);
+
+CREATE TABLE commentaire (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    contenu TEXT NOT NULL,
+    etat ENUM('enattente', 'accepte', 'refuse') DEFAULT 'enattente',
+    utilisateurid INT NOT NULL,
+    articleid INT NOT NULL,
+    datecreation DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (utilisateurid) REFERENCES utilisateur(id),
+    FOREIGN KEY (articleid) REFERENCES article(id)
+);
+                        </code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Conception UX/UI -->
+      <section class="slide" data-slide="9">
+        <div class="slide-content">
+          <h1>Conception UX/UI</h1>
+          <div class="design-system">
+            <div class="color-palette">
+              <h3>Charte graphique</h3>
+              <div class="colors">
+                <div class="color-item">
+                  <div class="color-swatch" style="background: #2c3e50"></div>
+                  <span>Bleu foncé #2C3E50</span>
+                </div>
+                <div class="color-item">
+                  <div class="color-swatch" style="background: #e74c3c"></div>
+                  <span>Rouge #E74C3C</span>
+                </div>
+                <div class="color-item">
+                  <div class="color-swatch" style="background: #3498db"></div>
+                  <span>Bleu clair #3498DB</span>
+                </div>
+              </div>
+            </div>
+            <div class="typography">
+              <h3>Typographie</h3>
+              <div class="font-samples">
+                <p
+                  style="
+                    font-family: &quot;Roboto&quot;, sans-serif;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                  "
+                >
+                  Roboto - Titres
+                </p>
+                <p style="font-family: &quot;Open Sans&quot;, sans-serif">
+                  Open Sans - Corps de texte
+                </p>
+              </div>
+            </div>
+            <div class="responsive-design">
+              <h3>Design responsive</h3>
+              <div class="devices">
+                <i class="fas fa-mobile-alt"></i>
+                <i class="fas fa-tablet-alt"></i>
+                <i class="fas fa-laptop"></i>
+                <i class="fas fa-desktop"></i>
+              </div>
+              <p>Approche mobile-first</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Wireframes et interfaces -->
+      <section class="slide" data-slide="10">
+        <div class="slide-content">
+          <h1>Wireframes et interfaces</h1>
+          <div class="interface-showcase">
+            <div class="interface-item">
+              <i class="fas fa-home"></i>
+              <h3>Page d'accueil</h3>
+              <p>Liste d'articles avec filtres et pagination</p>
+            </div>
+            <div class="interface-item">
+              <i class="fas fa-tasks"></i>
+              <h3>Interface de modération</h3>
+              <p>Tableau de bord pour validation des contenus</p>
+            </div>
+            <div class="interface-item">
+              <i class="fas fa-accordion"></i>
+              <h3>Système d'accordéon</h3>
+              <p>Commentaires repliables/dépliables</p>
+            </div>
+            <div class="interface-item">
+              <i class="fas fa-user-cog"></i>
+              <h3>Tableau de bord</h3>
+              <p>Espace personnel utilisateur</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Stack technique -->
+      <section class="slide" data-slide="11">
+        <div class="slide-content">
+          <h1>Stack technique</h1>
+          <div class="tech-stack">
+            <div class="stack-section">
+              <h3>Environnement LEMP</h3>
+              <div class="tech-items">
+                <div class="tech-item">
+                  <i class="fab fa-linux"></i>
+                  <span>Linux</span>
+                </div>
+                <div class="tech-item">
+                  <i class="fas fa-server"></i>
+                  <span>Nginx</span>
+                </div>
+                <div class="tech-item">
+                  <i class="fas fa-database"></i>
+                  <span>MariaDB</span>
+                </div>
+                <div class="tech-item">
+                  <i class="fab fa-php"></i>
+                  <span>PHP-FPM</span>
+                </div>
+              </div>
+            </div>
+            <div class="stack-section">
+              <h3>Frontend</h3>
+              <div class="tech-items">
+                <div class="tech-item">
+                  <i class="fab fa-html5"></i>
+                  <span>HTML5</span>
+                </div>
+                <div class="tech-item">
+                  <i class="fab fa-css3-alt"></i>
+                  <span>CSS3</span>
+                </div>
+                <div class="tech-item">
+                  <i class="fab fa-js"></i>
+                  <span>JavaScript</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 12: Architecture du projet -->
+      <section class="slide" data-slide="12">
+        <div class="slide-content">
+          <h1>Architecture du projet</h1>
+          <div class="project-structure">
+            <div class="folder-structure">
+              <div class="code-container">
+                <pre><code>
+/var/www/oneMediaPiece/
+├── config/                 # Configuration BDD
+│   └── database.php
+├── public/                 # Point d'entrée
+│   ├── index.php
+│   ├── assets/
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── images/
+└── src/
+    ├── Entity/             # Couche 1 - Entités
+    │   ├── ArticleEntity.php
+    │   ├── UtilisateurEntity.php
+    │   └── CommentaireEntity.php
+    ├── Dao/                # Couche 2 - Accès données
+    │   ├── ArticleDao.php
+    │   ├── UtilisateurDao.php
+    │   └── CommentaireDao.php
+    ├── Service/            # Couche 3 - Logique métier
+    │   ├── ArticleService.php
+    │   ├── UtilisateurService.php
+    │   └── ModerationService.php
+    └── Controller/         # Couche 4 - Contrôleurs
+        ├── ArticleController.php
+        ├── UtilisateurController.php
+        └── ModerationController.php
+                            </code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 13: Flux de données -->
+      <section class="slide" data-slide="13">
+        <div class="slide-content">
+          <h1>Flux de données</h1>
+          <div class="data-flow">
+            <div class="flow-step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <i class="fas fa-globe"></i>
+                <h3>Requête HTTP</h3>
+                <p>Client → index.php (routage)</p>
+              </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <i class="fas fa-cogs"></i>
+                <h3>Contrôleur</h3>
+                <p>Validation des données d'entrée</p>
+              </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <i class="fas fa-brain"></i>
+                <h3>Service</h3>
+                <p>Application des règles métier</p>
+              </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-step">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <i class="fas fa-database"></i>
+                <h3>DAO</h3>
+                <p>Communication avec la BDD</p>
+              </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-step">
+              <div class="step-number">5</div>
+              <div class="step-content">
+                <i class="fas fa-cube"></i>
+                <h3>Entités</h3>
+                <p>Objets de données structurés</p>
+              </div>
+            </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-step">
+              <div class="step-number">6</div>
+              <div class="step-content">
+                <i class="fas fa-code"></i>
+                <h3>Réponse JSON</h3>
+                <p>Données vers le Frontend</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 14: API REST -->
+      <section class="slide" data-slide="14">
+        <div class="slide-content">
+          <h1>API REST</h1>
+          <div class="api-section">
+            <div class="auth-info">
+              <h3><i class="fas fa-key"></i> Authentification JWT Token</h3>
+            </div>
+            <div class="api-grid">
+              <div class="api-endpoint post">
+                <span class="method">POST</span>
+                <span class="route">/api/auth/login</span>
+                <span class="desc">Connexion utilisateur</span>
+              </div>
+              <div class="api-endpoint post">
+                <span class="method">POST</span>
+                <span class="route">/api/article</span>
+                <span class="desc">Création d'article</span>
+              </div>
+              <div class="api-endpoint get">
+                <span class="method">GET</span>
+                <span class="route">/api/article/{id}</span>
+                <span class="desc">Récupération d'un article</span>
+              </div>
+              <div class="api-endpoint put">
+                <span class="method">PUT</span>
+                <span class="route">/api/moderation/article/{id}</span>
+                <span class="desc">Modération d'article</span>
+              </div>
+              <div class="api-endpoint get">
+                <span class="method">GET</span>
+                <span class="route">/api/article/{id}/commentaire</span>
+                <span class="desc">Commentaires d'un article</span>
+              </div>
+              <div class="api-endpoint post">
+                <span class="method">POST</span>
+                <span class="route">/api/commentaire</span>
+                <span class="desc">Création de commentaire</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 15: Couche Entity -->
+      <section class="slide" data-slide="15">
+        <div class="slide-content">
+          <h1>Couche Entity</h1>
+          <div class="code-container">
+            <pre><code class="php">
+class ArticleEntity {
+    private int $id;
+    private string $titre;
+    private string $contenu;
+    private string $etat; // 'enattente', 'accepte', 'refuse'
+    private string $visibilite; // 'public', 'prive'
+    private int $utilisateurId;
+    private DateTime $dateCreation;
+
+    public function __construct() {
+        $this->dateCreation = new DateTime();
+    }
+
+    // Getters
+    public function getId(): int { return $this->id; }
+    public function getTitre(): string { return $this->titre; }
+    public function getContenu(): string { return $this->contenu; }
+    public function getEtat(): string { return $this->etat; }
+    public function getVisibilite(): string { return $this->visibilite; }
+    public function getUtilisateurId(): int { return $this->utilisateurId; }
+    public function getDateCreation(): DateTime { return $this->dateCreation; }
+
+    // Setters
+    public function setId(int $id): void { $this->id = $id; }
+    public function setTitre(string $titre): void { $this->titre = $titre; }
+    public function setContenu(string $contenu): void { $this->contenu = $contenu; }
+    public function setEtat(string $etat): void { $this->etat = $etat; }
+    public function setVisibilite(string $visibilite): void { $this->visibilite = $visibilite; }
+    public function setUtilisateurId(int $utilisateurId): void { $this->utilisateurId = $utilisateurId; }
+}
+                    </code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 16: Couche Service - Exemple -->
+      <section class="slide" data-slide="16">
+        <div class="slide-content">
+          <h1>Couche Service - Exemple</h1>
+          <div class="code-container">
+            <pre><code class="php">
+class ArticleService {
+    private ArticleDao $articleDao;
+    private UtilisateurDao $utilisateurDao;
+    
+    public function __construct(ArticleDao $articleDao, UtilisateurDao $utilisateurDao) {
+        $this->articleDao = $articleDao;
+        $this->utilisateurDao = $utilisateurDao;
+    }
+
+    public function creerArticle(string $titre, string $contenu, int $utilisateurId): ArticleEntity {
+        // Validation des données
+        if (empty($titre) || empty($contenu)) {
+            throw new InvalidArgumentException('Le titre et le contenu sont obligatoires');
+        }
+
+        // Vérification que l'utilisateur existe et a les droits
+        $utilisateur = $this->utilisateurDao->findById($utilisateurId);
+        if (!$utilisateur || $utilisateur->getEstBanni()) {
+            throw new UnauthorizedException('Utilisateur non autorisé');
+        }
+
+        // Création de l'entité
+        $article = new ArticleEntity();
+        $article->setTitre($titre);
+        $article->setContenu($contenu);
+        $article->setEtat('enattente'); // État par défaut
+        $article->setVisibilite('public');
+        $article->setUtilisateurId($utilisateurId);
+
+        // Sauvegarde
+        return $this->articleDao->create($article);
+    }
+
+    public function modererArticle(int $articleId, string $nouvelEtat, int $moderateurId): bool {
+        $article = $this->articleDao->findById($articleId);
+        if (!$article) {
+            throw new NotFoundException('Article non trouvé');
+        }
+
+        $article->setEtat($nouvelEtat);
+        $result = $this->articleDao->update($article);
+
+        // Traçabilité
+        $this->logModerationAction($moderateurId, 'article', $articleId, $nouvelEtat);
+
+        return $result;
+    }
+
+    private function logModerationAction(int $moderateurId, string $type, int $itemId, string $action): void {
+        // Enregistrement dans la table moderation pour traçabilité
+        // Implementation détaillée...
+    }
+}
+                    </code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 17: Frontend - Fonctionnalités -->
+      <section class="slide" data-slide="17">
+        <div class="slide-content">
+          <h1>Frontend - Fonctionnalités</h1>
+          <div class="frontend-features">
+            <div class="frontend-item">
+              <i class="fas fa-mobile-alt"></i>
+              <h3>Interface responsive</h3>
+            </div>
+            <div class="frontend-item">
+              <i class="fas fa-list"></i>
+              <h3>Système d'accordéon</h3>
+              <p>Commentaires repliables avec animations CSS</p>
+            </div>
+            <div class="frontend-item">
+              <i class="fas fa-edit"></i>
+              <h3>Formulaires dynamiques</h3>
+              <p>Validation côté client avec feedback utilisateur</p>
+            </div>
+            <div class="frontend-item">
+              <i class="fas fa-tachometer-alt"></i>
+              <h3>Tableau de bord</h3>
+              <p>Interface de modération avec statistiques</p>
+            </div>
+            <div class="frontend-item">
+              <i class="fas fa-search"></i>
+              <h3>Recherche et filtres</h3>
+              <p>Filtrage en temps réel des articles</p>
+            </div>
+            <div class="frontend-item">
+              <i class="fas fa-bell"></i>
+              <h3>Notifications</h3>
+              <p>Alertes visuelles pour les actions utilisateur</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 23: Infrastructure Docker -->
+      <section class="slide" data-slide="23">
+        <div class="slide-content">
+          <h1>Infrastructure Docker</h1>
+          <div class="docker-infrastructure">
+            <div class="docker-intro">
+              <i class="fab fa-docker docker-logo"></i>
+              <h3>Containerisation complète de l'application</h3>
+              <p>Architecture microservices avec Docker Compose</p>
+            </div>
+
+            <div class="services-grid">
+              <div class="service-card php">
+                <i class="fab fa-php"></i>
+                <h3>PHP Service</h3>
+                <ul>
+                  <li>Build personnalisé avec PHP-FPM</li>
+                  <li>Composer pour les dépendances</li>
+                  <li>Extensions PHP optimisées</li>
+                </ul>
+              </div>
+
+              <div class="service-card nginx">
+                <i class="fas fa-server"></i>
+                <h3>Nginx Service</h3>
+                <ul>
+                  <li>Configuration personnalisée</li>
+                  <li>Reverse proxy vers PHP</li>
+                  <li>Gestion des assets statiques</li>
+                </ul>
+              </div>
+
+              <div class="service-card database">
+                <i class="fas fa-database"></i>
+                <h3>MariaDB Service</h3>
+                <ul>
+                  <li>Base de données persistante</li>
+                  <li>Script init.sql automatique</li>
+                  <li>Sauvegarde des données</li>
+                </ul>
+              </div>
+
+              <div class="service-card admin">
+                <i class="fas fa-tools"></i>
+                <h3>phpMyAdmin Service</h3>
+                <ul>
+                  <li>Interface d'administration</li>
+                  <li>Gestion de la base de données</li>
+                  <li>Accessible sur le port 8080</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 24: Architecture Docker Compose -->
+      <section class="slide" data-slide="24">
+        <div class="slide-content">
+          <h1>Architecture Docker Compose</h1>
+          <div class="compose-architecture">
+            <div class="compose-overview">
+              <h3>
+                <i class="fab fa-docker"></i> Structure multi-services
+                orchestrée
+              </h3>
+              <p>Configuration complète avec séparation des responsabilités</p>
+            </div>
+
+            <div class="services-explanation">
+              <div class="service-explanation">
+                <i class="fab fa-php"></i>
+                <div class="service-details">
+                  <h4>Service PHP</h4>
+                  <ul>
+                    <li>
+                      <strong>Build personnalisé</strong> depuis
+                      <code>./php_docker/</code>
+                    </li>
+                    <li><strong>Volume partagé</strong> avec le code source</li>
+                    <li>
+                      <strong>Composer intégré</strong> pour les dépendances
+                    </li>
+                    <li>
+                      <strong>Extensions PHP</strong> optimisées pour le projet
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="service-explanation">
+                <i class="fas fa-server"></i>
+                <div class="service-details">
+                  <h4>Service Nginx</h4>
+                  <ul>
+                    <li><strong>Reverse proxy</strong> vers PHP-FPM</li>
+                    <li>
+                      <strong>Configuration personnalisée</strong> pour
+                      OneMediaPiece
+                    </li>
+                    <li>
+                      <strong>Gestion des assets</strong> statiques (CSS, JS,
+                      images)
+                    </li>
+                    <li><strong>Port 80 exposé</strong> pour l'accès public</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="service-explanation">
+                <i class="fas fa-database"></i>
+                <div class="service-details">
+                  <h4>Service MariaDB</h4>
+                  <ul>
+                    <li><strong>Image officielle</strong> MariaDB 10.11</li>
+                    <li>
+                      <strong>Script init.sql</strong> automatique au démarrage
+                    </li>
+                    <li><strong>Volume persistant</strong> pour les données</li>
+                    <li>
+                      <strong>Variables d'environnement</strong> depuis .env
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="service-explanation">
+                <i class="fas fa-tools"></i>
+                <div class="service-details">
+                  <h4>Service phpMyAdmin</h4>
+                  <ul>
+                    <li><strong>Interface d'administration</strong> BDD</li>
+                    <li><strong>Connexion automatique</strong> à MariaDB</li>
+                    <li><strong>Port 8080</strong> pour l'accès web</li>
+                    <li><strong>Dépendance</strong> au service MariaDB</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="config-features">
+              <div class="feature-highlight">
+                <i class="fas fa-file-alt"></i>
+                <h4>Fichier .env</h4>
+                <p>
+                  Variables d'environnement externalisées pour la sécurité et la
+                  flexibilité
+                </p>
+              </div>
+
+              <div class="feature-highlight">
+                <i class="fas fa-hdd"></i>
+                <h4>Volumes persistants</h4>
+                <p>
+                  Conservation des données de la base entre les redémarrages
+                </p>
+              </div>
+
+              <div class="feature-highlight">
+                <i class="fas fa-network-wired"></i>
+                <h4>Réseau interne</h4>
+                <p>
+                  Communication sécurisée entre les services via Docker network
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 25: Déploiement et CI/CD -->
+      <section class="slide" data-slide="25">
+        <div class="slide-content">
+          <h1>Déploiement et CI/CD</h1>
+          <div class="deployment-section">
+            <div class="easy-deployment">
+              <i class="fab fa-github"></i>
+              <h3>Déploiement simplifié</h3>
+              <div class="deployment-steps">
+                <div class="deploy-step">
+                  <span class="step-number">1</span>
+                  <div class="step-content">
+                    <h4>Cloner le repository</h4>
+                    <code
+                      >git clone
+                      https://github.com/cleeryy/OneeMeediaPieecee.git</code
+                    >
+                  </div>
+                </div>
+                <div class="deploy-step">
+                  <span class="step-number">2</span>
+                  <div class="step-content">
+                    <h4>Lancer l'application</h4>
+                    <code>docker-compose up --build -d</code>
+                  </div>
+                </div>
+                <div class="deploy-step">
+                  <span class="step-number">3</span>
+                  <div class="step-content">
+                    <h4>Accéder à l'application</h4>
+                    <code>http://localhost</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-features">
+              <div class="feature-item">
+                <i class="fas fa-database"></i>
+                <h4>Initialisation automatique</h4>
+                <p>Script init.sql pour créer les tables et données de test</p>
+              </div>
+
+              <div class="feature-item">
+                <i class="fas fa-cogs"></i>
+                <h4>Configuration complète</h4>
+                <p>Tous les fichiers de config (Nginx, PHP, Composer) inclus</p>
+              </div>
+
+              <div class="feature-item">
+                <i class="fas fa-book"></i>
+                <h4>Documentation complète</h4>
+                <p>README détaillé, guide d'installation et d'utilisation</p>
+              </div>
+
+              <div class="feature-item">
+                <i class="fas fa-rocket"></i>
+                <h4>CI/CD Pipeline</h4>
+                <p>Intégration continue avec tests automatisés</p>
+              </div>
+
+              <div class="feature-item">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Environnement isolé</h4>
+                <p>Conteneurs Docker pour un déploiement sécurisé</p>
+              </div>
+
+              <div class="feature-item">
+                <i class="fas fa-sync-alt"></i>
+                <h4>Persistence des données</h4>
+                <p>Volumes Docker pour conserver les données</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 18: Démonstration live -->
+      <section class="slide" data-slide="18">
+        <div class="slide-content demo-slide">
+          <h1>Démonstration live</h1>
+          <div class="demo-container">
+            <i class="fas fa-laptop-code demo-icon"></i>
+            <p>Démonstration en direct de la plateforme OneMediaPiece</p>
+            <div class="demo-steps">
+              <div class="demo-step">
+                <i class="fas fa-sign-in-alt"></i>
+                <h3>1. Connexion utilisateur</h3>
+                <p>Authentification avec différents rôles</p>
+              </div>
+              <div class="demo-step">
+                <i class="fas fa-plus-circle"></i>
+                <h3>2. Création d'un article</h3>
+                <p>Interface de rédaction avec preview</p>
+              </div>
+              <div class="demo-step">
+                <i class="fas fa-check-circle"></i>
+                <h3>3. Interface de modération</h3>
+                <p>Validation des contenus par les modérateurs</p>
+              </div>
+              <div class="demo-step">
+                <i class="fas fa-comments"></i>
+                <h3>4. Système de commentaires</h3>
+                <p>Interaction en accordéon avec modération</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 19: Difficultés rencontrées -->
+      <section class="slide" data-slide="19">
+        <div class="slide-content">
+          <h1>Difficultés rencontrées</h1>
+          <div class="challenges-grid">
+            <div class="challenge-card">
+              <i class="fas fa-sitemap"></i>
+              <h3>Gestion des états complexes</h3>
+              <p>
+                Complexité des états d'articles et commentaires (en attente,
+                accepté, refusé) avec transitions valides
+              </p>
+            </div>
+            <div class="challenge-card">
+              <i class="fas fa-shield-alt"></i>
+              <h3>Système de permissions</h3>
+              <p>
+                Gestion fine des droits selon les rôles utilisateur avec
+                vérifications multiples
+              </p>
+            </div>
+            <div class="challenge-card">
+              <i class="fas fa-history"></i>
+              <h3>Traçabilité complète</h3>
+              <p>
+                Audit trail des actions de modération avec conservation de
+                l'historique
+              </p>
+            </div>
+            <div class="challenge-card">
+              <i class="fas fa-tachometer-alt"></i>
+              <h3>Optimisation performance</h3>
+              <p>
+                Optimisation des requêtes SQL complexes avec jointures multiples
+              </p>
+            </div>
+            <div class="challenge-card">
+              <i class="fas fa-lock"></i>
+              <h3>Sécurité avancée</h3>
+              <p>Protection contre les injections SQL, XSS et attaques CSRF</p>
+            </div>
+            <div class="challenge-card">
+              <i class="fas fa-code"></i>
+              <h3>Architecture 4-tiers</h3>
+              <p>Séparation stricte des responsabilités entre les couches</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 20: Axes d'amélioration -->
+      <section class="slide" data-slide="20">
+        <div class="slide-content">
+          <h1>Axes d'amélioration</h1>
+          <div class="improvements-list">
+            <div class="improvement-item">
+              <i class="fas fa-rocket"></i>
+              <div>
+                <h3>Performance</h3>
+                <p>
+                  Mise en cache Redis, pagination intelligente, optimisation des
+                  requêtes avec index
+                </p>
+              </div>
+            </div>
+            <div class="improvement-item">
+              <i class="fas fa-lock"></i>
+              <div>
+                <h3>Sécurité renforcée</h3>
+                <p>
+                  Authentification 2FA, validation renforcée, audit de sécurité
+                  automatisé
+                </p>
+              </div>
+            </div>
+            <div class="improvement-item">
+              <i class="fas fa-user-check"></i>
+              <div>
+                <h3>Expérience utilisateur</h3>
+                <p>
+                  Notifications temps réel, éditeur WYSIWYG, interface drag &
+                  drop
+                </p>
+              </div>
+            </div>
+            <div class="improvement-item">
+              <i class="fas fa-mobile-alt"></i>
+              <div>
+                <h3>Application mobile</h3>
+                <p>App native React Native/Flutter, PWA avec cache offline</p>
+              </div>
+            </div>
+            <div class="improvement-item">
+              <i class="fas fa-chart-bar"></i>
+              <div>
+                <h3>Analytics avancées</h3>
+                <p>
+                  Tableau de bord statistiques, métriques de performance,
+                  rapports automatisés
+                </p>
+              </div>
+            </div>
+            <div class="improvement-item">
+              <i class="fas fa-robot"></i>
+              <div>
+                <h3>Intelligence artificielle</h3>
+                <p>
+                  Modération automatique IA, recommandations personnalisées,
+                  détection de spam
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 21: Apports pédagogiques -->
+      <section class="slide" data-slide="21">
+        <div class="slide-content">
+          <h1>Apports pédagogiques</h1>
+          <div class="learning-outcomes">
+            <div class="outcome-category">
+              <h3>
+                <i class="fas fa-layer-group"></i> Architecture logicielle
+              </h3>
+              <ul>
+                <li>Maîtrise de l'architecture 4-tiers</li>
+                <li>Implémentation du pattern MVC</li>
+                <li>Séparation des responsabilités</li>
+                <li>Design patterns (DAO, Service)</li>
+              </ul>
+            </div>
+            <div class="outcome-category">
+              <h3><i class="fas fa-database"></i> Base de données</h3>
+              <ul>
+                <li>Conception de schémas relationnels</li>
+                <li>Optimisation des requêtes SQL</li>
+                <li>Gestion des contraintes d'intégrité</li>
+                <li>Transactions et concurrence</li>
+              </ul>
+            </div>
+            <div class="outcome-category">
+              <h3><i class="fas fa-code"></i> Développement web</h3>
+              <ul>
+                <li>Développement d'API REST</li>
+                <li>Authentification JWT</li>
+                <li>Validation et sécurisation</li>
+                <li>Responsive design</li>
+              </ul>
+            </div>
+            <div class="outcome-category">
+              <h3><i class="fas fa-users-cog"></i> Gestion de projet</h3>
+              <ul>
+                <li>Analyse des besoins client</li>
+                <li>Planification en sprints</li>
+                <li>Tests et débogage</li>
+                <li>Documentation technique</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 22: Bilan du projet -->
+      <section class="slide" data-slide="22">
+        <div class="slide-content">
+          <h1>Bilan du projet</h1>
+          <div class="project-summary">
+            <div class="summary-section objectives">
+              <i class="fas fa-bullseye"></i>
+              <h3>Objectifs atteints</h3>
+              <ul>
+                <li>Plateforme éditoriale fonctionnelle</li>
+                <li>Système de modération complet</li>
+                <li>Interface utilisateur intuitive</li>
+                <li>Architecture scalable et maintenue</li>
+              </ul>
+            </div>
+            <div class="summary-section skills">
+              <i class="fas fa-graduation-cap"></i>
+              <h3>Compétences acquises</h3>
+              <ul>
+                <li>Développement full-stack PHP</li>
+                <li>Architecture logicielle avancée</li>
+                <li>Conception de bases de données</li>
+                <li>Sécurisation d'applications web</li>
+              </ul>
+            </div>
+            <div class="summary-section timeline">
+              <i class="fas fa-calendar-check"></i>
+              <h3>Respect du planning</h3>
+              <ul>
+                <li>Projet livré en 9 semaines</li>
+                <li>Méthodologie agile appliquée</li>
+                <li>Itérations courtes et efficaces</li>
+                <li>Tests continus intégrés</li>
+              </ul>
+            </div>
+          </div>
+          <div class="project-metrics">
+            <div class="metric">
+              <span class="metric-value">23</span>
+              <span class="metric-label">Fonctionnalités</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value">4</span>
+              <span class="metric-label">Rôles utilisateur</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value">15+</span>
+              <span class="metric-label">Endpoints API</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value">100%</span>
+              <span class="metric-label">Responsive</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 26: Questions -->
+      <section class="slide" data-slide="23">
+        <div class="slide-content conclusion-slide">
+          <h1>Questions ?</h1>
+          <div class="conclusion-content">
+            <i class="fas fa-question-circle conclusion-icon"></i>
+            <p>Merci pour votre attention</p>
+            <div class="contact-info">
+              <p>
+                <i class="fas fa-envelope"></i> clery.arqueferradou@gmail.com
+              </p>
+              <p><i class="fab fa-github"></i> github.com/cleeryy</p>
+            </div>
+            <div class="thank-you-message">
+              <h3>Projet OneMediaPiece</h3>
+              <p>Une plateforme éditoriale moderne et sécurisée</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

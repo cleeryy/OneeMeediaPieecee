@@ -1,19 +1,17 @@
-version: "3.8"
-
 services:
   # PHP Service
   php:
-    build: './php_docker/'
+    build: "./php_docker/"
     volumes:
       - ./www/:/var/www/html/
 
   # Nginx Service
   nginx:
-    build: './nginx/'
+    build: "./nginx/"
     depends_on:
       - php
     ports:
-      - "10080:80"
+      - 80:80
     volumes:
       - ./www/:/var/www/html/
 
@@ -21,17 +19,19 @@ services:
   mariadb:
     image: mariadb:10.11
     ports:
-      - "13306:3306"
+      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: SuperPassword!1
+      MYSQL_DATABASE: onemediapiece
     volumes:
       - mysqldata:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
 
   # phpMyAdmin Service
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     ports:
-      - 18080:80
+      - 8080:80
     environment:
       PMA_HOST: mariadb
     depends_on:
@@ -40,4 +40,3 @@ services:
 # Volumes
 volumes:
   mysqldata:
-

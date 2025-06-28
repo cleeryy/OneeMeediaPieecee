@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OneMediaPiece - Blog avec modération</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <meta
+      name="description"
+      content="OneMediaPiece - Plateforme de blog collaborative avec système de modération intégré"
+    />
+  </head>
+  <body class="main-layout">
+    <!-- Lien d'accessibilité -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <a href="/" class="logo">OneMediaPiece</a>
+
+          <nav class="nav">
+            <!-- Menu mobile -->
+            <button
+              class="mobile-menu-toggle"
+              aria-label="Menu mobile"
+              id="mobileMenuToggle"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+
+            <!-- Menu principal -->
+            <ul class="nav-menu" id="navMenu">
+              <li><a href="/" class="nav-link active">Accueil</a></li>
+              <li><a href="/about" class="nav-link">À propos</a></li>
+
+              <!-- Éléments pour visiteurs non connectés -->
+              <li data-auth="false">
+                <a href="/register" class="nav-link">S'inscrire</a>
+              </li>
+              <li data-auth="false">
+                <a href="/login" class="nav-link">Se connecter</a>
+              </li>
+
+              <!-- Éléments pour utilisateurs connectés -->
+              <li data-auth="true">
+                <a href="/dashboard" class="nav-link">Tableau de bord</a>
+              </li>
+              <li data-auth="true" data-role="moderator">
+                <a href="/moderation" class="nav-link">Modération</a>
+              </li>
+            </ul>
+
+            <!-- Menu utilisateur -->
+            <div class="user-menu" data-auth="true">
+              <div class="user-menu-toggle" id="userMenuToggle">
+                <div class="user-avatar" data-user="avatar">JD</div>
+                <span data-user="name">John Doe</span>
+              </div>
+              <div class="user-menu-dropdown" id="userMenuDropdown">
+                <a href="/profile" class="user-menu-item">Mon profil</a>
+                <a href="/dashboard" class="user-menu-item">Mes articles</a>
+                <a href="#" class="user-menu-item" id="logoutBtn"
+                  >Déconnexion</a
+                >
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main id="main-content" class="main-content">
+      <div class="container">
+        <!-- Hero section -->
+        <section class="hero text-center mb-xl">
+          <h1 class="mb-md">Bienvenue sur OneMediaPiece</h1>
+          <p class="text-large mb-lg">
+            La plateforme collaborative de blog avec système de modération
+            intégré
+          </p>
+          <div class="btn-group" data-auth="false">
+            <a href="/register" class="btn btn-primary"
+              >Rejoindre la communauté</a
+            >
+            <a href="/login" class="btn btn-outline-primary">Se connecter</a>
+          </div>
+          <div data-auth="true">
+            <a href="/dashboard" class="btn btn-primary">Écrire un article</a>
+          </div>
+        </section>
+
+        <!-- Filtres -->
+        <section class="filters mb-lg">
+          <div class="card">
+            <div class="card-body">
+              <div
+                class="d-flex justify-between align-center flex-wrap"
+                style="gap: 1rem"
+              >
+                <h2 class="mb-0">Articles récents</h2>
+
+                <div class="d-flex align-center" style="gap: 1rem">
+                  <!-- Recherche -->
+                  <div class="search-box">
+                    <input
+                      type="text"
+                      id="searchInput"
+                      class="search-input"
+                      placeholder="Rechercher des articles..."
+                    />
+                    <span class="search-icon">🔍</span>
+                  </div>
+
+                  <!-- Filtre visibilité (pour utilisateurs connectés) -->
+                  <select
+                    id="visibilityFilter"
+                    class="form-select"
+                    data-auth="true"
+                  >
+                    <option value="">Tous les articles</option>
+                    <option value="public">Articles publics</option>
+                    <option value="prive">Articles privés</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Articles -->
+        <section class="articles">
+          <!-- Loading -->
+          <div id="articlesLoading" class="text-center p-xl">
+            <div class="spinner spinner-lg"></div>
+            <p class="mt-md">Chargement des articles...</p>
+          </div>
+
+          <!-- Container des articles -->
+          <div id="articlesContainer" class="cards-grid" style="display: none">
+            <!-- Les articles seront injectés ici par JavaScript -->
+          </div>
+
+          <!-- Message si aucun article -->
+          <div id="noArticles" class="text-center p-xl" style="display: none">
+            <h3>Aucun article trouvé</h3>
+            <p class="text-muted">Soyez le premier à publier un article !</p>
+            <a href="/dashboard" class="btn btn-primary" data-auth="true"
+              >Écrire un article</a
+            >
+          </div>
+        </section>
+
+        <!-- Pagination -->
+        <div id="pagination" class="pagination" style="display: none">
+          <!-- Les boutons de pagination seront injectés ici -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="/privacy" class="footer-link"
+              >Politique de confidentialité</a
+            >
+            <a href="/terms" class="footer-link">Conditions d'utilisation</a>
+            <a href="/contact" class="footer-link">Contact</a>
+            <a href="/about" class="footer-link">À propos</a>
+          </div>
+          <p class="footer-copyright">
+            © 2025 OneMediaPiece. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/articles.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Initialiser la page d'accueil
+        const homePage = new HomePage();
+        homePage.init();
+      });
+
+      class HomePage {
+        constructor() {
+          this.currentPage = 1;
+          this.articlesPerPage = 9;
+          this.searchTimeout = null;
+
+          // Éléments DOM
+          this.articlesContainer = document.getElementById("articlesContainer");
+          this.articlesLoading = document.getElementById("articlesLoading");
+          this.noArticles = document.getElementById("noArticles");
+          this.pagination = document.getElementById("pagination");
+          this.searchInput = document.getElementById("searchInput");
+          this.visibilityFilter = document.getElementById("visibilityFilter");
+        }
+
+        init() {
+          this.setupEventListeners();
+          this.loadArticles();
+        }
+
+        setupEventListeners() {
+          // Menu mobile
+          const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+          const navMenu = document.getElementById("navMenu");
+
+          mobileMenuToggle?.addEventListener("click", () => {
+            navMenu.classList.toggle("show");
+          });
+
+          // Menu utilisateur
+          const userMenuToggle = document.getElementById("userMenuToggle");
+          const userMenuDropdown = document.getElementById("userMenuDropdown");
+
+          userMenuToggle?.addEventListener("click", () => {
+            userMenuDropdown.classList.toggle("show");
+          });
+
+          // Fermer les menus en cliquant ailleurs
+          document.addEventListener("click", (e) => {
+            if (!e.target.closest(".user-menu")) {
+              userMenuDropdown?.classList.remove("show");
+            }
+            if (!e.target.closest(".nav")) {
+              navMenu?.classList.remove("show");
+            }
+          });
+
+          // Déconnexion
+          document
+            .getElementById("logoutBtn")
+            ?.addEventListener("click", (e) => {
+              e.preventDefault();
+              auth.logout();
+            });
+
+          // Recherche
+          this.searchInput?.addEventListener("input", (e) => {
+            clearTimeout(this.searchTimeout);
+            this.searchTimeout = setTimeout(() => {
+              this.loadArticles(1, e.target.value);
+            }, 500);
+          });
+
+          // Filtre visibilité
+          this.visibilityFilter?.addEventListener("change", (e) => {
+            this.loadArticles(1, this.searchInput.value, e.target.value);
+          });
+        }
+
+        async loadArticles(page = 1, search = "", visibility = "") {
+          try {
+            this.showLoading();
+
+            // Construire les filtres
+            const filters = {};
+            if (search) filters.search = search;
+            if (visibility) filters.visibilite = visibility;
+
+            const response = await api.getArticles(filters);
+
+            if (response.success && response.data) {
+              this.displayArticles(response.data);
+              this.currentPage = page;
+            } else {
+              this.showNoArticles();
+            }
+          } catch (error) {
+            console.error("Erreur lors du chargement des articles:", error);
+            auth.showMessage("Erreur lors du chargement des articles", "error");
+            this.showNoArticles();
+          } finally {
+            this.hideLoading();
+          }
+        }
+
+        displayArticles(articles) {
+          if (!articles || articles.length === 0) {
+            this.showNoArticles();
+            return;
+          }
+
+          this.articlesContainer.innerHTML = "";
+
+          articles.forEach((article) => {
+            const articleCard = this.createArticleCard(article);
+            this.articlesContainer.appendChild(articleCard);
+          });
+
+          this.articlesContainer.style.display = "";
+          this.noArticles.style.display = "none";
+        }
+
+        createArticleCard(article) {
+          const card = document.createElement("article");
+          card.className = `card article-card ${article.etat} card-animate`;
+
+          const excerpt =
+            article.contenu.length > 200
+              ? article.contenu.substring(0, 200) + "..."
+              : article.contenu;
+
+          card.innerHTML = `
+                    <div class="card-body">
+                        <div class="article-meta">
+                            <span class="article-author">Auteur #${
+                              article.utilisateur_id
+                            }</span>
+                            <span class="article-date">${this.formatDate(
+                              article.date_creation
+                            )}</span>
+                        </div>
+                        
+                        <div class="article-badges">
+                            <span class="badge badge-${
+                              article.etat
+                            }">${this.getEtatLabel(article.etat)}</span>
+                            <span class="badge badge-${
+                              article.visibilite
+                            }">${this.getVisibiliteLabel(
+            article.visibilite
+          )}</span>
+                        </div>
+                        
+                        <h2 class="card-title">
+                            <a href="/article-detail?id=${article.id}">${
+            article.titre
+          }</a>
+                        </h2>
+                        
+                        <p class="article-excerpt">${excerpt}</p>
+                        
+                        <div class="article-actions">
+                            <div class="article-stats">
+                                <span class="article-stat">
+                                    <span>📅</span>
+                                    <span>${this.formatDate(
+                                      article.date_creation
+                                    )}</span>
+                                </span>
+                            </div>
+                            <a href="/article-detail?id=${
+                              article.id
+                            }" class="btn btn-accent">Lire l'article</a>
+                        </div>
+                    </div>
+                `;
+
+          return card;
+        }
+
+        getEtatLabel(etat) {
+          const labels = {
+            en_attente: "En attente",
+            accepte: "Accepté",
+            refuse: "Refusé",
+            efface: "Effacé",
+          };
+          return labels[etat] || etat;
+        }
+
+        getVisibiliteLabel(visibilite) {
+          const labels = {
+            public: "Public",
+            prive: "Privé",
+          };
+          return labels[visibilite] || visibilite;
+        }
+
+        formatDate(dateString) {
+          const date = new Date(dateString);
+          const now = new Date();
+          const diffTime = Math.abs(now - date);
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+          if (diffDays === 1) {
+            return "Il y a 1 jour";
+          } else if (diffDays < 7) {
+            return `Il y a ${diffDays} jours`;
+          } else {
+            return date.toLocaleDateString("fr-FR");
+          }
+        }
+
+        showLoading() {
+          this.articlesLoading.style.display = "";
+          this.articlesContainer.style.display = "none";
+          this.noArticles.style.display = "none";
+        }
+
+        hideLoading() {
+          this.articlesLoading.style.display = "none";
+        }
+
+        showNoArticles() {
+          this.articlesContainer.style.display = "none";
+          this.noArticles.style.display = "";
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,218 @@
+/* Responsive Design - OneMediaPiece */
+
+/* Breakpoints utilities */
+@media (max-width: 575px) {
+  .d-sm-none {
+    display: none !important;
+  }
+  .d-sm-block {
+    display: block !important;
+  }
+  .d-sm-flex {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .d-md-none {
+    display: none !important;
+  }
+  .d-md-block {
+    display: block !important;
+  }
+  .d-md-flex {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .d-lg-none {
+    display: none !important;
+  }
+  .d-lg-block {
+    display: block !important;
+  }
+  .d-lg-flex {
+    display: flex !important;
+  }
+}
+
+/* Mobile First - Responsive Layout */
+@media (max-width: 767px) {
+  /* Container */
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+
+  /* Header responsive */
+  .header-content {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .nav {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Sidebar devient mobile */
+  .layout-with-sidebar {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    position: static;
+    order: -1;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  /* Grid responsive */
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Formulaires responsive */
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-inline .form-group {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .btn-group {
+    flex-direction: column;
+  }
+
+  /* Typography responsive */
+  h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  /* Modal responsive */
+  .modal {
+    margin: var(--spacing-md);
+    width: calc(100% - 32px);
+  }
+
+  /* Tables responsive */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Espacement mobile */
+  .main-content {
+    padding: var(--spacing-lg) 0;
+  }
+
+  /* Footer responsive */
+  .footer-links {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+}
+
+/* Tablet breakpoint */
+@media (min-width: 768px) and (max-width: 991px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop breakpoint */
+@media (min-width: 992px) {
+  /* Menu utilisateur hover */
+  .user-menu:hover .user-menu-dropdown {
+    display: block;
+  }
+
+  /* Sidebar fixe sur desktop */
+  .sidebar {
+    position: sticky;
+    top: calc(80px + var(--spacing-md));
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Print styles */
+@media print {
+  .header,
+  .footer,
+  .sidebar,
+  .btn,
+  .nav {
+    display: none !important;
+  }
+
+  .main-content {
+    padding: 0;
+  }
+
+  .card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid var(--color-text);
+  }
+
+  .btn {
+    border-width: 3px;
+  }
+}

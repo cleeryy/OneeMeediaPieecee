@@ -7,7 +7,7 @@ use InvalidArgumentException;
 
 class ArticleEntity
 {
-    private int $id;
+    private ?int $id = null;
     private string $titre;
     private string $contenu;
     private DateTime|string $dateCreation;
@@ -50,18 +50,18 @@ class ArticleEntity
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id 
+     * @param ?int $id 
      * @return self
      */
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;

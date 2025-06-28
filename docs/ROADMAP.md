@@ -38,25 +38,25 @@
 - [x] **Implémentation de la couche Entity**
   - [x] Création des classes UtilisateurEntity, ArticleEntity, CommentaireEntity
   - [x] Implémentation des getters/setters et méthodes de conversion
-- [ ] **Développement de la couche DAO**
-  - [ ] Création des classes DAO pour chaque entité
-  - [ ] Implémentation des méthodes CRUD
-  - [ ] Configuration de la connexion à la base de données
-- [ ] **Mise en place de la couche Service**
-  - [ ] Développement des règles métier
-  - [ ] Implémentation des services pour chaque fonctionnalité
-- [ ] **Création de la couche Controller**
-  - [ ] Mise en place des contrôleurs pour chaque type de requête
-  - [ ] Implémentation du routage dans index.php
+- [x] **Développement de la couche DAO**
+  - [x] Création des classes DAO pour chaque entité
+  - [x] Implémentation des méthodes CRUD
+  - [x] Configuration de la connexion à la base de données
+- [x] **Mise en place de la couche Service**
+  - [x] Développement des règles métier
+  - [x] Implémentation des services pour chaque fonctionnalité
+- [x] **Création de la couche Controller**
+  - [x] Mise en place des contrôleurs pour chaque type de requête
+  - [x] Implémentation du routage dans index.php
 
 ## Phase 4: Développement des fonctionnalités - Utilisateurs
 
 **Semaine 5**
 
-- [ ] **Système d'authentification**
-  - [ ] Inscription avec email et mot de passe
-  - [ ] Connexion et gestion des sessions
-  - [ ] Protection des routes selon le rôle
+- [x] **Système d'authentification**
+  - [x] Inscription avec email et mot de passe
+  - [x] Connexion et gestion des sessions
+  - [x] Protection des routes selon le rôle
 - [ ] **Gestion des utilisateurs**
   - [ ] Validation des comptes par administrateur
   - [ ] Attribution et modification des rôles
@@ -66,26 +66,26 @@
 
 **Semaine 6**
 
-- [ ] **Gestion des articles**
-  - [ ] Création et modification d'articles
-  - [ ] Système de modération des articles
-  - [ ] Gestion de la visibilité (public/privé)
-- [ ] **Interface de publication**
-  - [ ] Formulaire de création d'article
-  - [ ] Éditeur de contenu
-  - [ ] Interface de gestion des articles
+- [x] **Gestion des articles**
+  - [x] Création et modification d'articles
+  - [x] Système de modération des articles
+  - [x] Gestion de la visibilité (public/privé)
+- [x] **Interface de publication**
+  - [x] Formulaire de création d'article
+  - [x] Éditeur de contenu
+  - [x] Interface de gestion des articles
 
 ## Phase 6: Développement des fonctionnalités - Commentaires
 
 **Semaine 7**
 
-- [ ] **Système de commentaires**
-  - [ ] Création et affichage des commentaires
-  - [ ] Implémentation de l'accordion pour afficher les commentaires
-  - [ ] Modération des commentaires
-- [ ] **Fonctionnalités de modération**
-  - [ ] Circuit de validation des contenus
-  - [ ] Interface de modération pour administrateurs et modérateurs
+- [x] **Système de commentaires**
+  - [x] Création et affichage des commentaires
+  - [x] Implémentation de l'accordion pour afficher les commentaires
+  - [x] Modération des commentaires
+- [x] **Fonctionnalités de modération**
+  - [x] Circuit de validation des contenus
+  - [x] Interface de modération pour administrateurs et modérateurs
   - [ ] Système de notification pour les actions de modération
 
 ## Phase 7: Implémentation des fonctionnalités bonus
@@ -106,15 +106,15 @@
 
 **Semaine 9**
 
-- [ ] **Tests**
-  - [ ] Tests unitaires des différentes fonctionnalités
-  - [ ] Tests d'intégration entre les couches
+- [x] **Tests**
+  - [x] Tests unitaires des différentes fonctionnalités
+  - [x] Tests d'intégration entre les couches
   - [ ] Tests utilisateurs et correction des bugs
-- [ ] **Préparation au déploiement**
-  - [ ] Configuration de l'environnement de production
+- [x] **Préparation au déploiement**
+  - [x] Configuration de l'environnement de production
   - [ ] Optimisation des performances
   - [ ] Vérification de la sécurité
-- [ ] **Déploiement**
-  - [ ] Mise en production sur un serveur web
-  - [ ] Tests post-déploiement
-  - [ ] Documentation du projet
+- [x] **Déploiement**
+  - [x] Mise en production sur un serveur web
+  - [x] Tests post-déploiement
+  - [x] Documentation du projet

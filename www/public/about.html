@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>À propos - OneMediaPiece</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="main-layout">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <a href="/" class="logo">OneMediaPiece</a>
+          <nav class="nav">
+            <ul class="nav-menu">
+              <li><a href="/" class="nav-link">Accueil</a></li>
+              <li><a href="/about" class="nav-link active">À propos</a></li>
+
+              <!-- Éléments pour visiteurs non connectés -->
+              <li data-auth="false">
+                <a href="/register" class="nav-link">S'inscrire</a>
+              </li>
+              <li data-auth="false">
+                <a href="/login" class="nav-link">Se connecter</a>
+              </li>
+
+              <!-- Éléments pour utilisateurs connectés -->
+              <li data-auth="true">
+                <a href="/dashboard" class="nav-link">Tableau de bord</a>
+              </li>
+              <li data-auth="true" data-role="moderator">
+                <a href="/moderation" class="nav-link">Modération</a>
+              </li>
+            </ul>
+
+            <!-- Menu utilisateur -->
+            <div class="user-menu" data-auth="true">
+              <div class="user-menu-toggle" id="userMenuToggle">
+                <div class="user-avatar" data-user="avatar">JD</div>
+                <span data-user="name">John Doe</span>
+              </div>
+              <div class="user-menu-dropdown" id="userMenuDropdown">
+                <a href="/profile" class="user-menu-item">Mon profil</a>
+                <a href="/dashboard" class="user-menu-item">Mes articles</a>
+                <a href="#" class="user-menu-item" id="logoutBtn"
+                  >Déconnexion</a
+                >
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+      <div class="container">
+        <!-- Hero section -->
+        <section class="hero text-center mb-xl">
+          <h1 class="mb-md">À propos de OneMediaPiece</h1>
+          <p class="text-large mb-lg">
+            Une plateforme collaborative de blog avec un système de modération
+            intégré, conçue pour encourager un journalisme participatif de
+            qualité.
+          </p>
+        </section>
+
+        <!-- Mission -->
+        <section class="mb-xl">
+          <div class="card">
+            <div class="card-body">
+              <h2 class="text-center mb-lg">Notre mission</h2>
+              <div class="grid-2" style="gap: 3rem">
+                <div>
+                  <h3>🎯 Objectif</h3>
+                  <p>
+                    OneMediaPiece vise à créer un espace numérique où les
+                    citoyens peuvent s'exprimer librement tout en maintenant un
+                    niveau de qualité élevé grâce à un système de modération
+                    collaborative.
+                  </p>
+                </div>
+                <div>
+                  <h3>🌟 Vision</h3>
+                  <p>
+                    Nous croyons en un journalisme participatif où chacun peut
+                    contribuer à l'information, dans le respect de la vérité et
+                    de la diversité des opinions.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Fonctionnalités -->
+        <section class="mb-xl">
+          <h2 class="text-center mb-lg">Ce qui nous distingue</h2>
+          <div class="grid-3">
+            <div class="card">
+              <div class="card-body text-center">
+                <div style="font-size: 3rem; margin-bottom: 1rem">✍️</div>
+                <h3>Publication libre</h3>
+                <p>
+                  Chaque membre peut publier des articles sur les sujets qui lui
+                  tiennent à cœur, avec un système de visibilité flexible.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body text-center">
+                <div style="font-size: 3rem; margin-bottom: 1rem">🛡️</div>
+                <h3>Modération éthique</h3>
+                <p>
+                  Un système de modération transparent et équitable, assuré par
+                  une communauté de modérateurs dédiés.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body text-center">
+                <div style="font-size: 3rem; margin-bottom: 1rem">💬</div>
+                <h3>Dialogue constructif</h3>
+                <p>
+                  Des espaces de commentaires modérés pour favoriser les
+                  échanges respectueux et enrichissants.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Comment ça marche -->
+        <section class="mb-xl">
+          <h2 class="text-center mb-lg">Comment ça marche</h2>
+          <div class="card">
+            <div class="card-body">
+              <div class="grid-2" style="gap: 3rem">
+                <div>
+                  <h3>📝 Pour les rédacteurs</h3>
+                  <ol style="padding-left: 2rem">
+                    <li class="mb-sm">
+                      Créez votre compte et attendez la validation
+                    </li>
+                    <li class="mb-sm">
+                      Rédigez vos articles avec notre éditeur intuitif
+                    </li>
+                    <li class="mb-sm">Publiez et attendez la modération</li>
+                    <li class="mb-sm">
+                      Interagissez avec votre audience via les commentaires
+                    </li>
+                  </ol>
+                </div>
+                <div>
+                  <h3>👥 Pour la communauté</h3>
+                  <ol style="padding-left: 2rem">
+                    <li class="mb-sm">
+                      Lisez les articles de qualité de nos contributeurs
+                    </li>
+                    <li class="mb-sm">
+                      Participez aux discussions en commentant
+                    </li>
+                    <li class="mb-sm">Signalez les contenus inappropriés</li>
+                    <li class="mb-sm">
+                      Devenez modérateur pour aider la communauté
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Règles de la communauté -->
+        <section class="mb-xl">
+          <h2 class="text-center mb-lg">Règles de la communauté</h2>
+          <div class="card">
+            <div class="card-body">
+              <div class="grid-2" style="gap: 2rem">
+                <div>
+                  <h3>✅ Encouragé</h3>
+                  <ul style="padding-left: 2rem">
+                    <li class="mb-sm">Contenus originaux et de qualité</li>
+                    <li class="mb-sm">Débats respectueux et constructifs</li>
+                    <li class="mb-sm">Vérification des sources</li>
+                    <li class="mb-sm">Diversité des opinions</li>
+                    <li class="mb-sm">Aide mutuelle entre membres</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3>❌ Interdit</h3>
+                  <ul style="padding-left: 2rem">
+                    <li class="mb-sm">Contenus diffamatoires ou haineux</li>
+                    <li class="mb-sm">Spam et contenus publicitaires</li>
+                    <li class="mb-sm">
+                      Plagiat et violation de droits d'auteur
+                    </li>
+                    <li class="mb-sm">Désinformation délibérée</li>
+                    <li class="mb-sm">Harcèlement entre utilisateurs</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Équipe -->
+        <section class="mb-xl">
+          <h2 class="text-center mb-lg">Notre équipe</h2>
+          <div class="grid-3">
+            <div class="card">
+              <div class="card-body text-center">
+                <div class="user-avatar-lg" style="margin: 0 auto 1rem">AO</div>
+                <h3>Administrateurs</h3>
+                <p class="text-muted">
+                  Ils supervisent le bon fonctionnement de la plateforme et
+                  prennent les décisions importantes.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body text-center">
+                <div
+                  class="user-avatar-lg"
+                  style="
+                    margin: 0 auto 1rem;
+                    background-color: var(--color-warning);
+                  "
+                >
+                  MO
+                </div>
+                <h3>Modérateurs</h3>
+                <p class="text-muted">
+                  Ils veillent à la qualité des contenus et au respect des
+                  règles de la communauté.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body text-center">
+                <div
+                  class="user-avatar-lg"
+                  style="
+                    margin: 0 auto 1rem;
+                    background-color: var(--color-accent);
+                  "
+                >
+                  RE
+                </div>
+                <h3>Rédacteurs</h3>
+                <p class="text-muted">
+                  Le cœur de notre communauté : nos contributeurs qui partagent
+                  leurs connaissances et expériences.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="mb-xl">
+          <div class="card">
+            <div class="card-header text-center">
+              <h2 class="card-title">Nous contacter</h2>
+              <p class="card-subtitle">
+                Une question ? Une suggestion ? N'hésitez pas !
+              </p>
+            </div>
+            <div class="card-body">
+              <div class="text-center">
+                <div class="btn-group">
+                  <a href="/contact" class="btn btn-primary">
+                    📧 Nous contacter
+                  </a>
+                  <a
+                    href="/register"
+                    class="btn btn-outline-primary"
+                    data-auth="false"
+                  >
+                    🚀 Rejoindre la communauté
+                  </a>
+                  <a
+                    href="/dashboard"
+                    class="btn btn-outline-primary"
+                    data-auth="true"
+                  >
+                    ✍️ Écrire un article
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="/privacy" class="footer-link"
+              >Politique de confidentialité</a
+            >
+            <a href="/terms" class="footer-link">Conditions d'utilisation</a>
+            <a href="/contact" class="footer-link">Contact</a>
+            <a href="/about" class="footer-link">À propos</a>
+          </div>
+          <p class="footer-copyright">
+            © 2025 OneMediaPiece. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Setup menu utilisateur
+        const userMenuToggle = document.getElementById("userMenuToggle");
+        const userMenuDropdown = document.getElementById("userMenuDropdown");
+
+        userMenuToggle?.addEventListener("click", () => {
+          userMenuDropdown.classList.toggle("show");
+        });
+
+        document.addEventListener("click", (e) => {
+          if (!e.target.closest(".user-menu")) {
+            userMenuDropdown?.classList.remove("show");
+          }
+        });
+
+        document.getElementById("logoutBtn")?.addEventListener("click", (e) => {
+          e.preventDefault();
+          auth.logout();
+        });
+      });
+    </script>
+  </body>
+</html>

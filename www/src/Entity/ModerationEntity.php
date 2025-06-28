@@ -6,7 +6,7 @@ use InvalidArgumentException;
 
 class ModerationEntity
 {
-    private int $id;
+    private ?int $id = null;
     private string $typeAction;
     private ?string $description;
     private DateTime $dateAction;
@@ -20,6 +20,9 @@ class ModerationEntity
     public const TYPE_REFUS_COMMENTAIRE = 'refus_commentaire';
     public const TYPE_SIGNALEMENT = 'signalement';
     public const TYPE_SUPPRESSION_COMPTE = 'suppression_compte';
+    public const TYPE_VALIDATION_COMPTE = 'validation_compte';
+    public const TYPE_REFUS_COMPTE = 'refus_compte';
+    public const TYPE_CHANGEMENT_ROLE = 'changement_role';
 
     public function __construct()
     {
@@ -44,18 +47,18 @@ class ModerationEntity
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id 
+     * @param ?int $id 
      * @return self
      */
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
@@ -79,7 +82,10 @@ class ModerationEntity
             self::TYPE_REFUS_ARTICLE,
             self::TYPE_REFUS_COMMENTAIRE,
             self::TYPE_SIGNALEMENT,
-            self::TYPE_SUPPRESSION_COMPTE
+            self::TYPE_SUPPRESSION_COMPTE,
+            self::TYPE_VALIDATION_COMPTE,
+            self::TYPE_REFUS_COMPTE,
+            self::TYPE_CHANGEMENT_ROLE
         ];
 
         if (!in_array($typeAction, $validTypes)) {
