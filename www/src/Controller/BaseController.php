@@ -13,14 +13,17 @@ abstract class BaseController
     {
         $this->utilisateurService = new UtilisateurService();
 
-        // Démarrer la session si elle n'est pas déjà démarrée
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        // Ne faire les initialisations web que si nous sommes dans un contexte web
+        if (php_sapi_name() !== 'cli' && !headers_sent()) {
+            // Démarrer la session si elle n'est pas déjà démarrée
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
 
-        // Headers CORS et content-type
-        $this->setCorsHeaders();
-        header('Content-Type: application/json; charset=utf-8');
+            // Headers CORS et content-type
+            $this->setCorsHeaders();
+            header('Content-Type: application/json; charset=utf-8');
+        }
     }
 
     /**
@@ -174,8 +177,73 @@ abstract class BaseController
             $response['data'] = $data;
         }
 
-        echo json_encode($response, JSON_UNESCAPED_UNICODE);
+        // Nettoyer les données pour éviter les erreurs JSON
+        $cleanResponse = $this->cleanDataForJson($response);
+
+        $json = json_encode($cleanResponse, JSON_UNESCAPED_UNICODE);
+        
+        // Vérifier les erreurs JSON
+        if ($json === false) {
+            $jsonError = json_last_error_msg();
+            error_log("API JSON Error: " . $jsonError);
+            
+            // Fallback avec nettoyage plus agressif
+            $json = json_encode($this->forceCleanData($response), JSON_UNESCAPED_UNICODE | JSON_PARTIAL_OUTPUT_ON_ERROR);
+        }
+        
+        echo $json;
         exit;
+    }
+
+    /**
+     * Nettoie les données pour éviter les erreurs JSON
+     */
+    private function cleanDataForJson($data)
+    {
+        if (is_array($data)) {
+            return array_map([$this, 'cleanDataForJson'], $data);
+        }
+        
+        if (is_string($data)) {
+            // Convertir en UTF-8 si nécessaire
+            if (!mb_check_encoding($data, 'UTF-8')) {
+                $data = mb_convert_encoding($data, 'UTF-8', 'auto');
+            }
+            // Supprimer les caractères de contrôle
+            $data = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $data);
+        }
+        
+        return $data;
+    }
+
+    /**
+     * Nettoyage forcé des données en cas d'erreur JSON
+     */
+    private function forceCleanData($data)
+    {
+        if (is_array($data)) {
+            $clean = [];
+            foreach ($data as $key => $value) {
+                $cleanKey = is_string($key) ? preg_replace('/[^\w\-_]/', '', $key) : $key;
+                $clean[$cleanKey] = $this->forceCleanData($value);
+            }
+            return $clean;
+        }
+        
+        if (is_string($data)) {
+            // Nettoyage très agressif
+            return mb_convert_encoding(
+                preg_replace('/[^\p{L}\p{N}\p{P}\p{Z}]/u', '?', $data),
+                'UTF-8',
+                'UTF-8'
+            );
+        }
+        
+        if (is_object($data) && method_exists($data, '__toString')) {
+            return $this->forceCleanData((string)$data);
+        }
+        
+        return $data;
     }
 
     /**

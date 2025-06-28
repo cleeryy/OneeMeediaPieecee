@@ -204,9 +204,7 @@ class UtilisateurDAO
      */
     public function findEnAttente(): array
     {
-        // Pour cette fonctionnalité, on pourrait ajouter un champ 'etat_compte' ou utiliser 'est_banni'
-        // Pour l'instant, on retourne les comptes non bannis créés récemment
-        $query = "SELECT * FROM Utilisateur WHERE est_banni = 0 ORDER BY date_creation DESC";
+        $query = "SELECT * FROM Utilisateur WHERE etat_compte = 'en_attente' ORDER BY date_creation DESC";
         $this->logQuery($query);
 
         $utilisateursData = $this->db->query($query);
@@ -307,8 +305,25 @@ class UtilisateurDAO
      */
     public function validerCompte(int $id): bool
     {
-        // Cette méthode pourrait définir un champ 'compte_valide' ou simplement débannir l'utilisateur
-        return $this->bannir($id, false);
+        $query = "UPDATE Utilisateur SET etat_compte = 'valide' WHERE id = :id";
+        $params = ['id' => $id];
+        $this->logQuery($query, $params);
+
+        return $this->db->execute($query, $params) > 0;
+    }
+
+    /**
+     * Refuse un compte utilisateur
+     * @param int $id
+     * @return bool
+     */
+    public function refuserCompte(int $id): bool
+    {
+        $query = "UPDATE Utilisateur SET etat_compte = 'refuse' WHERE id = :id";
+        $params = ['id' => $id];
+        $this->logQuery($query, $params);
+
+        return $this->db->execute($query, $params) > 0;
     }
 
     /**
@@ -443,14 +458,15 @@ class UtilisateurDAO
      */
     private function insert(UtilisateurEntity $utilisateur): UtilisateurEntity
     {
-        $query = "INSERT INTO Utilisateur (email, mot_de_passe, pseudonyme, type_compte, est_banni, date_creation) 
-                  VALUES (:email, :mot_de_passe, :pseudonyme, :type_compte, :est_banni, NOW())";
+        $query = "INSERT INTO Utilisateur (email, mot_de_passe, pseudonyme, type_compte, etat_compte, est_banni, date_creation) 
+                  VALUES (:email, :mot_de_passe, :pseudonyme, :type_compte, :etat_compte, :est_banni, NOW())";
 
         $params = [
             'email' => $utilisateur->getEmail(),
             'mot_de_passe' => $utilisateur->getMotDePasse(),
             'pseudonyme' => $utilisateur->getPseudonyme(),
             'type_compte' => $utilisateur->getTypeCompte(),
+            'etat_compte' => $utilisateur->getEtatCompte(),
             'est_banni' => (int) $utilisateur->getEstBanni()
         ];
 
@@ -473,6 +489,7 @@ class UtilisateurDAO
                     mot_de_passe = :mot_de_passe, 
                     pseudonyme = :pseudonyme, 
                     type_compte = :type_compte, 
+                    etat_compte = :etat_compte,
                     est_banni = :est_banni 
                   WHERE id = :id";
 
@@ -482,6 +499,7 @@ class UtilisateurDAO
             'mot_de_passe' => $utilisateur->getMotDePasse(),
             'pseudonyme' => $utilisateur->getPseudonyme(),
             'type_compte' => $utilisateur->getTypeCompte(),
+            'etat_compte' => $utilisateur->getEtatCompte(),
             'est_banni' => (int) $utilisateur->getEstBanni()
         ];
 

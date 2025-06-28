@@ -12,6 +12,4 @@ return [
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,   // Retourne des resultats sous forme de tableaux associatifs (cles nom de colonnes)
         PDO::ATTR_EMULATE_PREPARES => false                 // Force de vraies requetes et pas emuler -> type de donnees correct (et pas des strings), requetes et donnees separees, plus performant parfois!!
     ]
-]
-
-    ?>
+];

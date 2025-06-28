@@ -146,22 +146,21 @@ class AuthManager {
   }
 
   /**
-   * Met à jour l'interface selon le rôle
+   * Met à jour l'interface selon le rôle utilisateur
    */
-  updateUIForRole(role) {
+  updateUIForRole(userRole) {
+    // Éléments réservés aux modérateurs
+    const moderatorElements = document.querySelectorAll('[data-role="moderator"]');
+    // Éléments réservés aux administrateurs  
     const adminElements = document.querySelectorAll('[data-role="admin"]');
-    const moderatorElements = document.querySelectorAll(
-      '[data-role="moderator"]'
-    );
-
-    adminElements.forEach((el) => {
-      el.style.display = role === "administrateur" ? "" : "none";
-    });
 
     moderatorElements.forEach((el) => {
-      el.style.display = ["administrateur", "moderateur"].includes(role)
-        ? ""
-        : "none";
+      el.style.display = 
+        userRole === "moderateur" || userRole === "administrateur" ? "" : "none";
+    });
+
+    adminElements.forEach((el) => {
+      el.style.display = userRole === "administrateur" ? "" : "none";
     });
   }
 
@@ -178,10 +177,28 @@ class AuthManager {
       return false;
     }
 
-    if (requiredRole && !this.api.hasRole(requiredRole)) {
-      this.showMessage("Permissions insuffisantes.", "error");
-      window.location.href = "/";
-      return false;
+    if (requiredRole) {
+      const user = this.api.getCurrentUser();
+      if (!user) {
+        this.showMessage("Session expirée.", "warning");
+        window.location.href = "/login";
+        return false;
+      }
+
+      // Vérification des rôles spécifiques
+      if (requiredRole === 'administrateur' && user.type_compte !== 'administrateur') {
+        this.showMessage("Accès refusé : droits d'administrateur requis.", "error");
+        window.location.href = "/";
+        return false;
+      }
+
+      if (requiredRole === 'moderateur' && 
+          user.type_compte !== 'moderateur' && 
+          user.type_compte !== 'administrateur') {
+        this.showMessage("Accès refusé : droits de modération requis.", "error");
+        window.location.href = "/";
+        return false;
+      }
     }
 
     return true;
