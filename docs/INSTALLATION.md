@@ -53,7 +53,7 @@ docker-compose logs -f
 docker-compose restart nginx
 
 # Reconstruire complètement
-docker-compose down && docker-compose up --build -d
+docker-compose down -v && docker-compose up --build -d
 ```
 
 ## Support
