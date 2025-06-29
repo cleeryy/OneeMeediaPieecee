@@ -11,7 +11,7 @@
 ### 1. Cloner le repository
 
 ```
-git clone https://github.com/votre-username/oneMediaPiece.git
+git clone https://github.com/cleeryy/OneeMeediaPieecee.git
 cd oneMediaPiece
 ```
 
