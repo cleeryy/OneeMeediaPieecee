@@ -12,7 +12,7 @@
 
 ```
 git clone https://github.com/cleeryy/OneeMeediaPieecee.git
-cd oneMediaPiece
+cd OneeMeediaPieecee
 ```
 
 ### 2. Lancer l'application
